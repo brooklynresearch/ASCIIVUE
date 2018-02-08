@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  h1(id='info') Please allow this page to access your camera.
+  div(id='notSupported')
+    h1 Your browser does not support the Camera API.
+  pre(id='ascii')
+  button(id='pause') pause / resume
+  button(id='capture') capture
+
+  //-
+    video(id='player', controls, autoplay)
+    button(id='capture') Capture
+    canvas(id='show' width=320, height=240)
+
+
+  input(type='text')
+  script(src='/javascripts/0camera.js')
+  script(src='/javascripts/0ascii.js')
+  script(src='/javascripts/0main.js')

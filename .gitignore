@@ -2,3 +2,5 @@
 *.csr
 *.key
 *.crt
+node_modules/
+asciiex/node_modules/

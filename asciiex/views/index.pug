@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  h1(id='info') Please allow this page to access your camera.
+  video(id='player', controls, autoplay)
+  canvas(id='show' width=320 height=240)
+  button(id='pause') pause / resume
+  button(id='capture') capture
+
+
+
+  input(type='text')
+  script(src='/javascripts/camera.js')
+  script(src='/javascripts/ascii.js')
+  script(src='/javascripts/main.js')
