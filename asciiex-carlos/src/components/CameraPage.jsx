@@ -7,6 +7,9 @@ class CameraPage extends Component {
 		super(props);
 
 		this.canvas = null;
+		this.state = {
+			quote: ""
+		}
 
 		this.handleSnapShot = ::this.handleSnapShot;
 	}
@@ -46,6 +49,23 @@ class CameraPage extends Component {
 	handleSnapShot(e) {
 		e.preventDefault();
 		let dataURL = canvas.toDataURL("image/png");
+		let SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+		let SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+		let SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+
+		let recognition = new SpeechRecognition();
+		let speechRecognitionList = new SpeechGrammarList();
+		recognition.continuous = true;
+		recognition.lang = 'en-US';
+		recognition.interimResults = true;
+		recognition.maxAlternatives = 1;
+		recognition.start();
+
+		recognition.onresult = (event) => {
+			var word = event.results[0][0].transcript;
+			this.setState({ quote: word });
+			console.log(word);
+		}
 
 		axios.post('/save-image', { dataURL }).then(() => alert('saved successfully'));
 	}
@@ -53,6 +73,7 @@ class CameraPage extends Component {
 	render() {
 		return(
 			<div className='camera-page'>
+        <div>{this.state.quote}</div>
 				<video id="video" width="640" height="480" controls></video>
 				<button id="snap" onClick={this.handleSnapShot}>Snap Photo</button>
 				<canvas id="canvas" width="640" height="480"></canvas>
