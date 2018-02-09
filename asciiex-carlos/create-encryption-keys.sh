@@ -1,4 +1,5 @@
 mkdir -p -- "encryption-keys"
+mkdir -p -- "images"
 
 if [ ! -f "encryption-keys/csr.pem" ]; then
 openssl req -newkey rsa:2048 -new -nodes -keyout encryption-keys/key.pem -out encryption-keys/csr.pem
