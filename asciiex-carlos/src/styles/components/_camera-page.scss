@@ -1,0 +1,16 @@
+.container-ascii-art {
+  position: relative;
+  height: 560px;
+
+  #ascii-canvas {
+    position: relative;
+    z-index: 1;
+  }
+
+  #quote-canvas {
+    left: 0;
+    position: absolute;
+    z-index: 2;
+  }
+
+}

@@ -7,11 +7,11 @@ class CameraPage extends Component {
 	constructor(props) {
 		super(props);
 
-		this.canvas = null;
 		this.state = {
 			seconds: 5,
 			quote: ""
 		}
+		this.MAX_TEXT_WIDTH = 360;
 
 		this.startCountDown = ::this.startCountDown;
 		this.handleSnapShot = ::this.handleSnapShot;
@@ -19,41 +19,48 @@ class CameraPage extends Component {
 		this.active = debounce(::this.active, 120000, { trailing: true }, );
 	}
 
+	openWebCam() {
+		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+				this.video.src = window.URL.createObjectURL(stream);
+			});
+		};
+	}
+
 	componentDidMount() {
 		this.active();
-		this.canvas = document.getElementById('canvas');
-		let video = document.getElementById('video'),
-			canvasOptions = {
-				fontSize: 10,
-				lineHeight: 10,
-				charWidth: 4.2,
-				width: 400,
-				height: 400,
-				el: canvas,
-				background: '#FFF',
-				color: '#000'
-			}
 
 		this.startCountDown(this.startSpeechRecognition, 5);
 
-		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-			navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
-				video.src = window.URL.createObjectURL(stream);
-			});
-		}
+		this.openWebCam();
 
-		aalib.read.video.fromVideoElement(document.querySelector("video"), { autoplay: true })
-			.map(aalib.aa({ width: 120, height: 150 }))
+		aalib.read.video.fromVideoElement(this.video, { autoplay: true })
+			.map(aalib.aa({ width: 73, height: 100 }))
 			.map(aalib.render.canvas({
-				width: screen.width - 50,
-				height: screen.height - 100,
-				el: this.canvas
+				fontSize: 10,
+				height: 510,
+				width: 375,
+				el: this.asciiCanvas
 			}))
 			.subscribe();
 	}
 
+	componentDidUpdate() {
+		this.updateQuoteCanvas();
+	}
+
 	active() {
 		this.props.history.replace('/');
+	}
+
+	updateQuoteCanvas() {
+		let ctx = this.quoteCanvas.getContext('2d');
+		let { width, height } = this.quoteCanvas;
+		ctx.clearRect(0, 0, width, height);
+		ctx.textAlign = "center";
+		ctx.font = '12px verdana';
+		this.wrapText(ctx, this.state.quote, width / 2, height - 35, this.MAX_TEXT_WIDTH, 20);
+
 	}
 
 	startCountDown(endCallBack, seconds) {
@@ -70,6 +77,37 @@ class CameraPage extends Component {
 		}, 1000);
 	}
 
+	capitalize(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+
+	wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+
+		let lines = text.split("\n");
+
+		for(let i = 0; i < lines.length; i++) {
+
+			let words = lines[i].split(' ');
+			let line = '';
+
+			for(let n = 0; n < words.length; n++) {
+				let testLine = line + words[n] + ' ';
+				let metrics = ctx.measureText(testLine);
+				let testWidth = metrics.width;
+				if(testWidth > maxWidth && n > 0) {
+					ctx.fillText(line, x, y);
+					line = words[n] + ' ';
+					y += lineHeight;
+				} else {
+					line = testLine;
+				}
+			}
+
+			ctx.fillText(line, x, y);
+			y += lineHeight;
+		}
+	}
+
 	startSpeechRecognition() {
 		let SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 		let SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
@@ -83,8 +121,9 @@ class CameraPage extends Component {
 		recognition.maxAlternatives = 1;
 
 		recognition.onresult = (event) => {
-			var word = event.results[0][0].transcript;
-			this.setState({ quote: word });
+			let quote = event.results[event.results.length - 1][0].transcript;
+			quote = `\"${this.capitalize(quote)}.\"`;
+			this.setState({ quote });
 		}
 
 		recognition.start();
@@ -92,8 +131,13 @@ class CameraPage extends Component {
 
 	handleSnapShot(e) {
 		e.preventDefault();
-		let dataURL = canvas.toDataURL("image/png");
+
+		let ctx = this.quoteCanvas.getContext('2d');
+		ctx.drawImage(this.asciiCanvas, 0, 0, 375, 510);
+
+		let dataURL = this.quoteCanvas.toDataURL("image/png");
 		axios.post('/save-image', { dataURL }).then(() => alert('saved successfully'));
+		ctx.clearRect(0, 0, 375, 510);
 	}
 
 	render() {
@@ -109,11 +153,13 @@ class CameraPage extends Component {
             this.setState({quote: ''});
             this.startSpeechRecognition();
           }}>retry</div>
-        <div style={countdownStyle}>{this.state.seconds}</div>
-        <div>{this.state.quote}</div>
-				<video id="video" width="640" height="480" controls></video>
+				<video id="video" ref={ref => this.video = ref} width="640" height="480" controls></video>
+				<div ref={ref => this.asciiContainer = ref} className="container-ascii-art">
+					<canvas ref={ref => this.asciiCanvas = ref} id="ascii-canvas"></canvas>
+					<canvas ref={ref => this.quoteCanvas = ref} id="quote-canvas" width='375px' height='560px'></canvas>
+				</div>
 				<button id="snap" onClick={this.handleSnapShot}>Snap Photo</button>
-				<canvas id="canvas" width="640" height="480"></canvas>
+				<div style={countdownStyle}>{this.state.seconds}</div>
 			</div>
 		)
 	}
