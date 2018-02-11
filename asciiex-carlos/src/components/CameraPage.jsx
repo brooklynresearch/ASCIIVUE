@@ -82,7 +82,6 @@ class CameraPage extends Component {
 	}
 
 	wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-
 		let lines = text.split("\n");
 
 		for(let i = 0; i < lines.length; i++) {
@@ -148,6 +147,7 @@ class CameraPage extends Component {
 		return(
 			<div className='camera-page'>
         <div onClick={this.props.back}>back</div>
+				<div>FUCK YOU I CHANGED IT!!!!</div>
         <div id='retry-speech' onClick={() => {
             this.active();
             this.setState({quote: ''});

@@ -3,16 +3,16 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const VENDORS = ['react', 'react-router-dom'];
+const VENDORS = ['react', 'react-router-dom', 'webpack-hot-middleware/client?reload=true'];
 
 module.exports = {
 	entry: {
-		bundle: './src/app.jsx',
-		vendor: VENDORS
+		bundle: ['webpack-hot-middleware/client?reload=true', './src/app.jsx'],
+		vendor: VENDORS,
 	},
 	output: {
 		path: path.join(__dirname, 'public'),
-		filename: '[name].[chunkhash].js',
+		filename: '[name].[hash].js',
 		publicPath: '/'
 	},
 	resolve: {
@@ -87,6 +87,9 @@ module.exports = {
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
 		}),
+    new webpack.HotModuleReplacementPlugin(),
+    // Use NoErrorsPlugin for webpack 1.x
+    new webpack.NoEmitOnErrorsPlugin()
 		// new webpack.optimize.UglifyJsPlugin({
 		// 	mangle: true,
 		// 	compress: {
@@ -102,12 +105,12 @@ module.exports = {
 		// 	exclude: [/\.min\.js$/gi] // skip pre-minified libs
 		// })
 	],
-	// devServer: {
-	// 	contentBase: path.join(__dirname, "public"),
-	// 	port: 9000,
-	// 	historyApiFallback: true,
-	// 	host: "0.0.0.0",
-	// 	disableHostCheck: true
-	// },
+	devServer: {
+		contentBase: path.join(__dirname, "public"),
+		port: 9000,
+		historyApiFallback: true,
+		host: "0.0.0.0",
+		disableHostCheck: true
+	},
 	devtool: 'cheap-module-source-map'
 };

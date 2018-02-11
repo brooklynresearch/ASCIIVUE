@@ -6,6 +6,11 @@ const https = require("https");
 const forceSSL = require("express-force-ssl");
 const bodyParser = require("body-parser");
 const base64Img = require("base64-img");
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config');
+const webpackMiddleware = require('webpack-dev-middleware');
+const historyApiFallback = require('connect-history-api-fallback');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const httpsOptions = {
 	key: fs.readFileSync('./encryption-keys/key.pem', 'utf8'),
@@ -16,7 +21,28 @@ const port = process.env.PORT || 4001;
 
 const app = express();
 
+const compiler = webpack(webpackConfig);
 app.set('port', port);
+
+
+app.use(historyApiFallback({
+	verbose: false
+}));
+
+app.use(webpackMiddleware(compiler, {
+	contentBase: path.join(__dirname, "public"),
+	publicPath: webpackConfig.output.publicPath,
+	noInfo: true,
+	hot: true,
+	quiet: false,
+	noInfo: false,
+	lazy: false,
+	stats: {
+		colors: true
+	}
+}));
+
+app.use(webpackHotMiddleware(compiler));
 
 app.use(express.static(__dirname + '/public'));
 
