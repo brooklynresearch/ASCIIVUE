@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "create-keys": "sh create-encryption-keys.sh",
-    "build": "yarn create-keys && webpack",
+    "build": "npm run create-keys && webpack",
     "start": "node server.js",
     "serve": "webpack-dev-server"
   },
