@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import aalib from 'aalib.js';
 import axios from 'axios';
 import { debounce } from 'lodash';
+import wtLogo from '../assets/wt-logo.jpg';
+
+const Arrow = () => {
+	return(
+		<svg className='reload' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+  		<path id='reload-arrow' fillRule="evenodd" d="M13.6 2.4C12.2.9 10.2 0 8 0 3.6 0 0 3.6 0 8s3.6 8 8 8c3.7 0 6.8-2.6 7.7-6h-2.1c-.8 2.3-3 4-5.6 4-3.3 0-6-2.7-6-6s2.7-6 6-6c1.7 0 3.1.7 4.2 1.8L9 7h7V0l-2.4 2.4z"/>
+		</svg>
+	)
+};
 
 class CameraPage extends Component {
 	constructor(props) {
@@ -11,12 +20,13 @@ class CameraPage extends Component {
 			seconds: 5,
 			quote: ""
 		}
+
 		this.MAX_TEXT_WIDTH = 360;
 
 		this.startCountDown = ::this.startCountDown;
 		this.handleSnapShot = ::this.handleSnapShot;
 		this.startSpeechRecognition = ::this.startSpeechRecognition;
-		this.active = debounce(::this.active, 120000, { trailing: true }, );
+		this.active = debounce(::this.active, 999999999999, { trailing: true }, );
 	}
 
 	openWebCam() {
@@ -35,9 +45,11 @@ class CameraPage extends Component {
 		this.openWebCam();
 
 		aalib.read.video.fromVideoElement(this.video, { autoplay: true })
-			.map(aalib.aa({ width: 73, height: 100 }))
+			.map(aalib.aa({ width: 73, height: 95 }))
 			.map(aalib.render.canvas({
+				background: 'rgba(0,0,0,0)',
 				fontSize: 10,
+				lineHeight: 10,
 				height: 510,
 				width: 375,
 				el: this.asciiCanvas
@@ -141,26 +153,41 @@ class CameraPage extends Component {
 
 	render() {
 		let countdownStyle = {
-			visibility: this.state.seconds ? 'visible' : 'hidden'
+			"visibility": this.state.seconds ? 'visible' : 'hidden'
 		}
 
 		return(
-			<div className='camera-page'>
-        <div onClick={this.props.back}>back</div>
-				<div>FUCK YOU I CHANGED IT!!!!</div>
-        <div id='retry-speech' onClick={() => {
-            this.active();
-            this.setState({quote: ''});
-            this.startSpeechRecognition();
-          }}>retry</div>
-				<video id="video" ref={ref => this.video = ref} width="640" height="480" controls></video>
-				<div ref={ref => this.asciiContainer = ref} className="container-ascii-art">
-					<canvas ref={ref => this.asciiCanvas = ref} id="ascii-canvas"></canvas>
-					<canvas ref={ref => this.quoteCanvas = ref} id="quote-canvas" width='375px' height='560px'></canvas>
+			<article className='camera-page'>
+				<header className='camera-page-header'>
+					<div id='wt-logo' onClick={this.props.history.goBack}>
+						<img src={wtLogo}></img>
+					</div>
+	        <div id='retry-speech' onClick={() => {
+	            this.active();
+	            this.setState({quote: ''});
+	            this.startSpeechRecognition();
+	          }}>
+						<div className='reload-arrow'>
+							<Arrow/>
+						</div>
+					</div>
+				</header>
+				<section className='camera-page-canvas-container'>
+					<video id="video" ref={ref => this.video = ref} width="640" height="480" controls></video>
+					<div ref={ref => this.asciiContainer = ref} className="container-ascii-art">
+						<canvas ref={ref => this.asciiCanvas = ref} id="ascii-canvas"></canvas>
+						<canvas ref={ref => this.quoteCanvas = ref} id="quote-canvas" width='375px' height='560px'></canvas>
+					</div>
+				</section>
+				<div className="snap">
+					<div id="snapshot" onClick={this.handleSnapShot}>SNAP PHOTO</div>
 				</div>
-				<button id="snap" onClick={this.handleSnapShot}>Snap Photo</button>
-				<div style={countdownStyle}>{this.state.seconds}</div>
-			</div>
+				<div className="countdown-overlay" style={countdownStyle}>
+					<div className="countdown-overlay-timer">
+						{this.state.seconds}
+					</div>
+				</div>
+			</article>
 		)
 	}
 }

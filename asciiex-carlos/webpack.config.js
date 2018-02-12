@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const VENDORS = ['react', 'react-router-dom', 'webpack-hot-middleware/client?reload=true'];
 
@@ -72,6 +73,12 @@ module.exports = {
 	 }]
 	},
 	plugins: [
+		new CopyWebpackPlugin([
+			{
+				from: './src/manifest.json',
+				to: path.join(__dirname, 'public')
+			}
+  ]),
 		new webpack.optimize.CommonsChunkPlugin({
 			names: ['vendor', 'manifest']
 		}),

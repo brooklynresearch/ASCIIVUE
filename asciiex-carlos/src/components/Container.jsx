@@ -10,7 +10,7 @@ class Container extends Component {
 
 	render() {
 		return(
-			<main className='container'>
+			<main className='container' onClick={()=>document.documentElement.webkitRequestFullScreen()}>
 				<BrowserRouter>
           <Switch>
             <Route path="/camera" component={CameraPage}/>

@@ -1,6 +1,30 @@
 @import 'base/variables';
+@import 'components/instruction-page';
 @import 'components/camera-page';
 
 #video {
   display: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#root {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: $white;
+}
+
+a:visited {
+  color: $white;
 }
