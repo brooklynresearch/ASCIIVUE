@@ -95,11 +95,15 @@ class CameraPage extends Component {
 
 	wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 		let lines = text.split("\n");
+		let initLineHeight = lineHeight;
+		let initY = y;
+
 
 		for(let i = 0; i < lines.length; i++) {
 
 			let words = lines[i].split(' ');
 			let line = '';
+
 
 			for(let n = 0; n < words.length; n++) {
 				let testLine = line + words[n] + ' ';
@@ -116,6 +120,12 @@ class CameraPage extends Component {
 
 			ctx.fillText(line, x, y);
 			y += lineHeight;
+
+			if((y - initY) / initLineHeight > 2) {
+				alert('Quote Too long, retry!');
+				this.setState({ quote: '' });
+				return;
+			}
 		}
 	}
 

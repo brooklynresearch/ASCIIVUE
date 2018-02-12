@@ -19,7 +19,7 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | b
 ```
 You'll have to restart your terminal for it take effect. Then:
 ```sh
-nvm install node 8.6.0
+nvm install 8.6.0
 nvm use node 8.6.0
 ```
 
