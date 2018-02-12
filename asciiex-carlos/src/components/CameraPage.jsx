@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import aalib from 'aalib.js';
 import axios from 'axios';
 import { debounce } from 'lodash';
-import wtLogo from '../assets/wt-logo.jpg';
+// import wtLogo from '../assets/wt-logo.jpg';
 
 const Arrow = () => {
 	return(
@@ -160,7 +160,7 @@ class CameraPage extends Component {
 			<article className='camera-page'>
 				<header className='camera-page-header'>
 					<div id='wt-logo' onClick={this.props.history.goBack}>
-						<img src={wtLogo}></img>
+						<img src='wt-logo.jpg'></img>
 					</div>
 	        <div id='retry-speech' onClick={() => {
 	            this.active();

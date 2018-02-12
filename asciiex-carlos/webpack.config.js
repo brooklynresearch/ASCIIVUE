@@ -77,6 +77,10 @@ module.exports = {
 			{
 				from: './src/manifest.json',
 				to: path.join(__dirname, 'public')
+			},
+			{
+				from: './src/assets/wt-logo.jpg',
+				to: path.join(__dirname, 'public')
 			}
   ]),
 		new webpack.optimize.CommonsChunkPlugin({

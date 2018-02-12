@@ -19,6 +19,17 @@ const httpsOptions = {
 
 const port = process.env.PORT || 4001;
 
+const ip = require('lodash')
+	.chain(require('os').networkInterfaces())
+	.values()
+	.flatten()
+	.find({
+		family: 'IPv4',
+		internal: false
+	})
+	.value()
+	.address;
+
 const app = express();
 
 const compiler = webpack(webpackConfig);
@@ -68,10 +79,8 @@ app.post('/save-image', (req, res) => {
 	} = req.body;
 
 	base64Img.img(dataURL, './images/', `wt-${Date.now()}`, function (err, filepath) {});
-
-
 });
 
 const server = https.createServer(httpsOptions, app);
 
-server.listen(port, () => console.log(`Listening on port: ${port}`));
+server.listen(port, () => console.log(`Listening on: https://${ip}:${port}`));
