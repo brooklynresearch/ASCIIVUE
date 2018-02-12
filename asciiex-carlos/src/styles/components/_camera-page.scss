@@ -1,0 +1,132 @@
+.camera-page {
+  background: $darkGrey;
+  /* safari4+,chrome */
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 0.5fr 7fr 1fr;
+
+  .camera-page-header {
+    background: $white;
+    position: relative;
+    padding: 15px;
+    z-index: 10;
+    box-shadow: 0 0.2px 2px $blackTransparent;
+    border-bottom: 0.5px solid $blackTransparent;
+    display: grid;
+    grid-template-columns: 8fr 2fr;
+    align-items: center;
+    justify-content: center;
+
+    #wt-logo {
+      padding-right: 40%;
+      margin-left: 0;
+
+      img {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+
+    #retry-speech {
+      .reload-arrow {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+
+        .reload {
+          position: relative;
+          top: 17.5%;
+          left: 40%;
+          display: block;
+          width: 35%;
+
+          #reload-arrow {
+            fill: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(78,135,237,1)), color-stop(25%, rgba(108,194,242,1)), color-stop(75%, rgba(108,229,185,1)), color-stop(100%, rgba(84,188,166,1)));
+          }
+        }
+      }
+
+    }
+
+  }
+
+  .snap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    #snapshot {
+      box-shadow: 1px 2px 5px rgba(0,0,0, .4);
+      letter-spacing: -.1px;
+      color: $white;
+      font-family: 'Roboto';
+      font-weight: 400;
+      background: $darkGreen;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      width: 70vw;
+      height: 7vh;
+    }
+  }
+
+  .countdown-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $blackTransparent;
+    position: absolute;
+    z-index: 3;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+
+    .countdown-overlay-timer {
+      font-family: 'Roboto';
+
+      font-size: 1.5rem;
+      box-shadow: 0 2px 5px rgba(0,0,0, .4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      background: $darkGreen;
+      border-radius: 50%;
+      width: 10vh;
+      height: 10vh;
+    }
+  }
+}
+
+.container-ascii-art {
+  top: -3vh;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  #ascii-canvas {
+
+    position: relative;
+    z-index: 1;
+    width: 92% !important;
+    height: 87% !important;
+  }
+
+  #quote-canvas {
+    top: 11vh;
+    width: 92% !important;
+    height: 92% !important;
+    position: absolute;
+    z-index: 2;
+  }
+
+}
