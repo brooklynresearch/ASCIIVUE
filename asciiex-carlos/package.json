@@ -19,6 +19,7 @@
     "express-force-ssl": "^0.3.2",
     "image-webpack-loader": "^4.1.0",
     "lodash": "^4.17.5",
+    "popmotion-react": "^2.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-modal": "^3.1.12",

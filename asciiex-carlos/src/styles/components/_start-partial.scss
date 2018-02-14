@@ -1,0 +1,12 @@
+.start-view {
+  @extend .center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  .start-link {
+    @extend .link-text;
+    @extend .uppercase;
+    font-size: 2.5rem;
+  }
+}

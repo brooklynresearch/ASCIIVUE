@@ -12,7 +12,7 @@ const Arrow = () => {
 	)
 };
 
-class CameraPage extends Component {
+class CameraPartial extends Component {
 	constructor(props) {
 		super(props);
 
@@ -166,6 +166,8 @@ class CameraPage extends Component {
 			"visibility": this.state.seconds ? 'visible' : 'hidden'
 		}
 
+		console.log(this.props);
+
 		return(
 			<article className='camera-page'>
 				<header className='camera-page-header'>
@@ -202,4 +204,4 @@ class CameraPage extends Component {
 	}
 }
 
-export default CameraPage;
+export default CameraPartial;

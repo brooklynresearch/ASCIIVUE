@@ -1,0 +1,36 @@
+.wt-selection {
+  @extend .center;
+  width: 100vw;
+  height: 85vh;
+
+  display: grid;
+  grid-template-rows: 2fr 4fr 3fr 4fr 2fr;
+
+  .selection-top-row {
+    position: relative;
+    @extend .center;
+    display: flex;
+
+  }
+
+  .selection-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    a {
+      width: 100% !important;
+    }
+
+    .right {
+      div {
+        margin-left: auto !important;
+      }
+    }
+
+    .left {
+      div {
+        margin-right: auto !important;
+      }
+    }
+  }
+}

@@ -1,13 +1,38 @@
 @import 'base/variables';
-@import 'components/instruction-page';
-@import 'components/camera-page';
+@import 'components/container';
+@import 'components/views';
+@import 'components/start-partial';
+@import 'components/camera-partial';
+@import 'components/selection-partial';
+@import 'components/ascii-thumbnail';
 
 #video {
   display: none;
 }
 
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.full-page {
+  width: 100vw;
+  height: 100vh;
+}
+
 * {
-  box-sizing: border-box;
+  color: $text-color;
+  font-family: 'Roboto';
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+.link-text {
+  color: $link-color;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 body {

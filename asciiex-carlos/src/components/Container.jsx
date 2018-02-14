@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import WelcomePage from 'WelcomePage';
-import CameraPage from 'CameraPage';
+import StartPartial from 'StartPartial';
+import Views from 'Views';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+
 
 class Container extends Component {
 	constructor(props) {
@@ -12,10 +13,16 @@ class Container extends Component {
 		return(
 			<main className='container' onClick={()=>document.documentElement.webkitRequestFullScreen()}>
 				<BrowserRouter>
-          <Switch>
-            <Route path="/camera" component={CameraPage}/>
-            <Route exact path="/" component={WelcomePage}/>
-          </Switch>
+					<article className='wt-views'>
+		        <section className='wt-partial'>
+							<Switch>
+		            <Route path="/:id" component={Views}/>
+		            <Route exact path="/" component={StartPartial}/>
+		          </Switch>
+		        </section>
+		        <footer className='wt-footer'>
+		        </footer>
+		      </article>
         </BrowserRouter>
 			</main>
 		)

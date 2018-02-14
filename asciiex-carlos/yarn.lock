@@ -2867,6 +2867,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
+framesync@^3.0.2, framesync@^3.1.7:
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/framesync/-/framesync-3.1.7.tgz#9b9aa3eff8598625302597851a428f40c3dc1c6b"
+
 fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
@@ -5150,6 +5154,20 @@ pngquant-bin@^3.0.0:
     bin-wrapper "^3.0.0"
     logalot "^2.0.0"
 
+popmotion-react@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/popmotion-react/-/popmotion-react-2.1.0.tgz#519e7004d9d5ab5c571c2bf03627daf4ebc18152"
+  dependencies:
+    popmotion "^8.1.0"
+
+popmotion@^8.1.0:
+  version "8.1.10"
+  resolved "https://registry.yarnpkg.com/popmotion/-/popmotion-8.1.10.tgz#1b7e697d47ddd1bb26f1c6db8f35530bc86619d3"
+  dependencies:
+    framesync "^3.1.7"
+    style-value-types "^1.0.3"
+    stylefire "^1.1.9"
+
 portfinder@^1.0.9:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.13.tgz#bb32ecd87c27104ae6ee44b5a3ccbf0ebb1aede9"
@@ -6549,6 +6567,17 @@ style-loader@^0.20.1:
   dependencies:
     loader-utils "^1.1.0"
     schema-utils "^0.4.3"
+
+style-value-types@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/style-value-types/-/style-value-types-1.0.3.tgz#651c3c75c988ea2ef86e20c6a07f98cce62efddf"
+
+stylefire@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/stylefire/-/stylefire-1.1.9.tgz#337f2d58690450a919093b2b4e89b925435bf287"
+  dependencies:
+    framesync "^3.0.2"
+    style-value-types "^1.0.3"
 
 sum-up@^1.0.1:
   version "1.0.3"

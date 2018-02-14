@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
 
+$gradient: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #4E87ED), color-stop(25%, #6CC2F2), color-stop(75%, #6CE5B9), color-stop(100%, #54BCA6));
 $black: rgb(39, 39, 39);
 $blackTransparent: rgba(39, 39, 39,.8);
-$white: white;
+
 $darkBlue: rgb(78, 135, 237);
 $darkBlueTransparent: rgba(78, 135, 237, .8);
 $lightBlue: rgb(108, 194, 242);
@@ -10,4 +11,9 @@ $lightBlueTransparent: rgba(108, 194, 242, .9);
 $lightGreen: rgb(108, 229, 185);
 $darkGreen: rgb(84, 188, 166);
 $lightGrey: rgb(245, 245, 245);
-$darkGrey:rgb(224, 224, 224)
+$darkGrey: rgb(224, 224, 224);
+
+$white: white;
+$semi-transparent-white: rgba(255, 255, 255, .5);
+$text-color: #707070;
+$link-color: #68B9D2;
