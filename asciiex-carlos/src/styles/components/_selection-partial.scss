@@ -11,6 +11,10 @@
     @extend .center;
     display: flex;
 
+    .wt-ascii-camera-preview {
+      font-size: 1.5rem;
+    }
+
   }
 
   .selection-bottom-row {

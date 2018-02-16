@@ -3,6 +3,7 @@ import SelectionPartial from 'SelectionPartial';
 import AgreementParital from 'AgreementPartial';
 import CameraPartial from 'CameraPartial';
 import StartPartial from 'StartPartial';
+import PrintPartial from 'PrintPartial';
 
 class Views extends Component {
 	constructor(props) {
@@ -12,24 +13,19 @@ class Views extends Component {
 			selection: SelectionPartial,
 			agreement: AgreementParital,
 			camera: CameraPartial,
-			start: StartPartial
+			start: StartPartial,
+			print: PrintPartial
 		}
 	}
 
 	render() {
 		let { match } = this.props;
 
-		console.log(match.params.id);
+		console.log(this.props);
 
-		let Partial = this.partials[match.params.id || 'start'];
+		let Partial = this.partials[match.params.id] || StartPartial;
 		return(
-			<article className='wt-view'>
-        <section className='wt-partial'>
-          <Partial {...this.props}/>
-        </section>
-        <footer className='wt-footer'>
-        </footer>
-      </article>
+			<Partial {...this.props}/>
 		)
 	}
 }

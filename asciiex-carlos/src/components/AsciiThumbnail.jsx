@@ -8,11 +8,12 @@ class AsciiThumbnail extends Component {
 
 	render() {
 		let { to, component, title, width, height, className } = this.props;
-		let backgroundStyle = { width, height, background: `url(${component})` }
+		let backgroundStyle = { width, height }
 
 		return(
 			<Link to={to} style={{width, height}} className={`ascii-thumbnail ${className}`}>
         <div style={backgroundStyle} className='ascii-background'>
+          {component()}
           <div className='ascii-foreground'>
             {title}
           </div>

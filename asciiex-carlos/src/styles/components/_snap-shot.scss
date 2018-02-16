@@ -1,0 +1,37 @@
+.wt-snapshot {
+  @extend .center;
+  display: flex;
+
+  .wt-camera-icon {
+    background: url("/images/wt-camera-icon.png");
+    width: 15vw;
+    height: 15vw;
+    background-size: cover;
+  }
+
+  .wt-camera-countdown {
+    @extend .link-text;
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+  .wt-photo-retake {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    align-items: center;
+    text-align: center;
+    width: 48vh;
+    height: 100%;
+
+    * {
+      @extend .link-text;
+      font-size: 1.4rem;
+    }
+  }
+
+}
+
+// <div className='wt-photo-retake'>
+//   <div className='wt-retake'>Retake</div>
+//   <div className='wt-photo-confirm'>OK</div>

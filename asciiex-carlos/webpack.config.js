@@ -79,8 +79,8 @@ module.exports = {
 				to: path.join(__dirname, 'public')
 			},
 			{
-				from: './src/assets/wt-logo.jpg',
-				to: path.join(__dirname, 'public')
+				from: './src/assets/',
+				to: path.join(__dirname, 'public/images/')
 			}
   ]),
 		new webpack.optimize.CommonsChunkPlugin({

@@ -1,0 +1,18 @@
+.wt-ascii-camera {
+  @extend .center;
+  display: flex;
+
+  video {
+    display: none;
+  }
+
+  .wt-ascii-camera-container {
+    height: 62.5vh;
+    width: 88.8vw;
+
+    #ascii-canvas {
+      @extend .fill-element;
+    }
+  }
+
+}

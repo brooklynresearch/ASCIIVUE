@@ -3,12 +3,11 @@
 @import 'components/views';
 @import 'components/start-partial';
 @import 'components/camera-partial';
-@import 'components/selection-partial';
+@import 'components/ascii-quote';
+@import 'components/ascii-camera';
+@import 'components/snap-shot';
 @import 'components/ascii-thumbnail';
-
-#video {
-  display: none;
-}
+@import 'components/selection-partial';
 
 .center {
   align-items: center;
@@ -18,6 +17,11 @@
 .full-page {
   width: 100vw;
   height: 100vh;
+}
+
+.fill-element {
+  width: 100%;
+  height: 100%;
 }
 
 * {

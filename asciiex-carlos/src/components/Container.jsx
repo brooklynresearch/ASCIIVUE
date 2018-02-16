@@ -21,6 +21,9 @@ class Container extends Component {
 		          </Switch>
 		        </section>
 		        <footer className='wt-footer'>
+							<Link to='/'>
+								<div className='wt-logo'/>
+							</Link>
 		        </footer>
 		      </article>
         </BrowserRouter>

@@ -7,6 +7,18 @@
   grid-template-rows: 13fr 2fr;
 
   .wt-footer {
-    background: $gradient;
+    @extend .center;
+    display: flex;
+
+    background: url("/images/wt-footer.jpg");
+    background-size: cover;
+
+    .wt-logo {
+      width: 15vw;
+      height: 15vw;
+      background: url("/images/wt-logo.png");
+      background-size: cover;
+    }
   }
+
 }
