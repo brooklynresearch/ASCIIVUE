@@ -9,17 +9,29 @@ import SnapShot from 'SnapShot';
 class CameraPartial extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			speech: false
+		}
+		this.handleSpeech = ::this.handleSpeech;
+	}
+
+	handleSpeech() {
+		this.setState({ speech: true });
 	}
 
 	componentDidMount() {}
 
 	componentDidUpdate() {}
 
+	renderPictureQuote() {
+		return this.state.speech ? <AsciiQuote/> : <SnapShot enableSpeech={this.handleSpeech} countDownFrom={3}/>;
+	}
+
 	render() {
 		return(
 			<article className='wt-camera-partial'>
 					<AsciiCamera/>
-					<SnapShot countDownFrom={3}/>
+					{this.renderPictureQuote()}
 			</article>
 		)
 	}

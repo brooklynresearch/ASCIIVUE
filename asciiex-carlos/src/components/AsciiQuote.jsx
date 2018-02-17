@@ -96,7 +96,11 @@ class AsciiQuote extends Component {
 	render() {
 		let { width, height } = this.props;
 		return(
-			<canvas ref={ref => this.quoteCanvas = ref} id="quote-canvas" width={width} height={height}/>)
+			<div className='wt-ascii-quote-container'>
+        <div className='wt-microphone'/>
+        <canvas ref={ref => this.quoteCanvas = ref} id="quote-canvas" width={width} height={height}/>
+      </div>
+		)
 	}
 }
 

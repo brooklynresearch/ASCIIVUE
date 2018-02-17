@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 const Camera = ({ onClick }) => <div className='wt-camera-icon' onClick={onClick}/>
 
@@ -13,7 +14,7 @@ const Retake = ({ onRetake, onConfirm }) => {
 	return(
 		<div className='wt-photo-retake'>
       <div className='wt-retake' onClick={onRetake}>Retake</div>
-      <div className='wt-photo-confirm'>OK</div>
+      <div className='wt-photo-confirm' onClick={onConfirm}>OK</div>
     </div>
 	)
 }
@@ -30,7 +31,6 @@ class SnapShot extends Component {
 		this.state = {
 			seconds: this.props.countDownFrom,
 			action: 'camera'
-
 		}
 	}
 
@@ -84,7 +84,8 @@ class SnapShot extends Component {
 		let handlers = {
 			onClick: this.handleSnapShotClick,
 			onCountDown: this.handleCountDown,
-			onRetake: this.handleRetakeClick
+			onRetake: this.handleRetakeClick,
+			onConfirm: this.props.enableSpeech
 		}
 		return(
 			<div className='wt-snapshot'>
