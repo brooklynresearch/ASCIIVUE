@@ -26,6 +26,7 @@ class CameraPartial extends Component {
 
 	componentDidUpdate() {}
 
+
 	renderPictureQuote() {
 		let { speech, keyboard } = this.state;
 
