@@ -10,7 +10,7 @@ class AsciiCamera extends Component {
 
 	componentDidMount() {
 
-		this.getWebCamera();
+		this.videoStream = this.getWebCamera();
 
 		aalib.read.video.fromVideoElement(this.video, { autoplay: true })
 			.map(aalib.aa({ width: 73, height: 95 }))
@@ -25,11 +25,27 @@ class AsciiCamera extends Component {
 			.subscribe();
 	}
 
+	componentWillUnmount() {
+		// stop the video stream everytime a component unmounts. If not done will cause performance issues/ multiple instances of webcam.
+		this.videoStream.then(stream => {
+			console.log(stream.getTracks()[0])
+			stream.getTracks()[0].stop();
+		})
+	}
+
 	getWebCamera() {
 		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-			navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+			let webcam = navigator.mediaDevices.getUserMedia({
+				video: {
+					width: 160,
+					height: 120,
+					frameRate: 10
+				}
+			});
+			webcam.then(stream => {
 				this.video.src = window.URL.createObjectURL(stream);
 			});
+			return webcam;
 		};
 	}
 

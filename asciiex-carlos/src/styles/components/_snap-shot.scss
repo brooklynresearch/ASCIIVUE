@@ -15,21 +15,21 @@
     font-weight: 700;
   }
 
-  .wt-photo-retake {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    align-items: center;
-    text-align: center;
-    width: 48vh;
-    height: 100%;
+}
 
-    * {
-      @extend .link-text;
-      font-size: 1.4rem;
-    }
+.wt-photo-retake {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  align-items: center;
+  text-align: center;
+  width: 48vh;
+  height: 100%;
+
+  * {
+    @extend .link-text;
+    font-size: 1.4rem;
   }
-
 }
 
 // <div className='wt-photo-retake'>

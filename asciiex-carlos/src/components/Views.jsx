@@ -21,8 +21,6 @@ class Views extends Component {
 	render() {
 		let { match } = this.props;
 
-		console.log(this.props);
-
 		let Partial = this.partials[match.params.id] || StartPartial;
 		return(
 			<Partial {...this.props}/>

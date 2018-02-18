@@ -1,10 +1,22 @@
 .wt-ascii-quote-container {
-  #ascii-quote {}
+  @extend .center;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+
+  #quote-canvas {
+    align-self: start;
+
+  }
+
+  .wt-photo-retake {
+    width: 100%;
+  }
 
   .wt-microphone {
-    width: 20vw;
-    height: 20vw;
+    width: 15vw;
+    height: 15vw;
     background: url("/images/wt-mic.png");
     background-size: cover;
   }
+
 }

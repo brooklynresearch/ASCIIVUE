@@ -1,0 +1,33 @@
+.wt-input-partial {
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+
+  .wt-speak {
+    @extend .link-text;
+    text-align: center;
+
+  }
+
+  .wt-type {
+    align-self: center;
+    position: relative;
+    padding-top: 15px;
+    width: 40vw;
+
+    @extend .link-text;
+    font-size: 1rem;
+
+    .wt-keyboard {
+      position: absolute;
+      top: 2px;
+      margin: 1vw;
+      display: inline-block;
+      background: url("/images/wt-keyboard.png");
+      background-size: cover;
+      width: 8vw;
+      height: 8vw;
+    }
+  }
+
+}
