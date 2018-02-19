@@ -1,6 +1,7 @@
 .start-view {
   @extend .center;
-  @extend .fill-element;
+  width: 100%;
+  height: 86vh;
   display: flex;
 
   .start-link {

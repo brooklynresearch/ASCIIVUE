@@ -13,7 +13,7 @@ const AgreementParital = () => (
         </Link>
       </div>
       <div>
-        <Link to='/selection'>
+        <Link to='/camera'>
         I Understand
       </Link>
       </div>

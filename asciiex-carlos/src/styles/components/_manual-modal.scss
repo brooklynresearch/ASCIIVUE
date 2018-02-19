@@ -10,11 +10,22 @@
   height: 86vh;
 
   .wt-input-manual-modal {
+    display: flex;
+    @extend .center;
     width: 80vw;
     height: 20vh;
     border: 1px $text-color solid;
     background: $semi-transparent-white;
     border-radius: 15px;
+    text-align: center;
+
+    .wt-input-manual-text {
+      display: flex;
+      @extend .center;
+      width: 60vw;
+      height: 15vh;
+    }
+
   }
 
   .wt-invisible-text-input {

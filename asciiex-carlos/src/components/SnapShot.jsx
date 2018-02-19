@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Retake from 'Retake';
+import CameraFlash from 'CameraFlash';
 
 const Camera = ({ onClick }) => <div className='wt-camera-icon' onClick={onClick}/>
 
@@ -19,28 +20,80 @@ class SnapShot extends Component {
 		this.handleSnapShotClick = ::this.handleSnapShotClick;
 		this.renderCameraAction = ::this.renderCameraAction;
 		this.handleRetakeClick = ::this.handleRetakeClick;
+		this.fireRearCameraFlash = ::this.fireRearCameraFlash;
+		this.disableFlash = ::this.disableFlash;
 
 		this.state = {
 			seconds: this.props.countDownFrom,
-			action: 'camera'
+			action: 'camera',
+			flash: false
 		}
 	}
 
 	componentDidMount() {}
 
 	handleRetakeClick() {
+		this.props.restartCamera();
 		this.setState({ action: 'countdown', seconds: this.props.countDownFrom });
+	}
+
+	fireRearCameraFlash() {
+
+		let imageCapture = null;
+		var deviceConfig = {
+			video: {
+				width: 480,
+				height: 640,
+				facingMode: "environment",
+				deviceId: null
+			}
+		};
+
+		var imageCaptureConfig = {
+			fillLightMode: "flash",
+			/* or "flash" */
+			focusMode: "continuous"
+		};
+
+		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+			let rearCamera = navigator.mediaDevices.getUserMedia(deviceConfig);
+			rearCamera.then(stream => {
+
+				let track = stream.getVideoTracks()[0];
+				imageCapture = new ImageCapture(track);
+
+				imageCapture.setOptions(imageCaptureConfig);
+				imageCapture.getPhotoCapabilities().then(() => {
+
+					track.applyConstraints({
+						advanced: [{ torch: true }]
+					});
+				});
+			})
+			return rearCamera;
+		};
+	}
+
+	disableFlash() {
+		this.flashPromise.then(stream => {
+
+			let track = stream.getVideoTracks()[0];
+			track.stop();
+		})
 	}
 
 	handleCountDown(seconds) {
 		let interval = setInterval(() => {
 			seconds--
-
+			if(seconds == 2) {
+				this.flashPromise = this.fireRearCameraFlash();
+			}
 			// Display 'counter' wherever you want to display it.
 			if(seconds == 0) {
 				// Display a login box
 				clearInterval(interval);
-				this.setState({ action: 'retake' })
+				this.props.pause();
+				this.setState({ flash: !this.state.flash, action: 'retake' })
 			}
 
 			this.setState({ seconds });
@@ -49,12 +102,7 @@ class SnapShot extends Component {
 
 	handleSnapShotClick(e) {
 		e.preventDefault();
-		// let ctx = this.quoteCanvas.getContext('2d');
-		// ctx.drawImage(this.asciiCanvas, 0, 0, 375, 510);
-		//
-		// let dataURL = this.quoteCanvas.toDataURL("image/png");
-		// axios.post('/save-image', { dataURL }).then(() => alert('saved successfully'));
-		// ctx.clearRect(0, 0, 375, 510);
+
 
 		this.setState({ action: 'countdown' });
 	}
@@ -65,9 +113,14 @@ class SnapShot extends Component {
 			countdown: CameraCountDown,
 			retake: Retake
 		}
+		if(action == 'retake') {
+			setTimeout(this.disableFlash, 1000);
+		}
 
 		return cameraAction[action]({ seconds, ...handlers });
 	}
+
+
 
 	render() {
 		let { action, seconds } = this.state;
@@ -75,10 +128,11 @@ class SnapShot extends Component {
 			onClick: this.handleSnapShotClick,
 			onCountDown: this.handleCountDown,
 			onRetake: this.handleRetakeClick,
-			onConfirm: this.props.enableSpeech
+			onConfirm: this.props.confirm
 		}
 		return(
 			<div className='wt-snapshot'>
+				<CameraFlash in={this.state.flash}/>
        {this.renderCameraAction({action, seconds}, handlers)}
       </div>)
 	}

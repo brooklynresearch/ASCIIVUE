@@ -1,7 +1,7 @@
 .wt-selection {
   @extend .center;
   width: 100vw;
-  height: 85vh;
+  height: 86vh;
 
   display: grid;
   grid-template-rows: 2fr 4fr 3fr 4fr 2fr;
@@ -36,5 +36,12 @@
         margin-right: auto !important;
       }
     }
+  }
+
+  .or {
+    display: flex;
+    @extend .center;
+    font-size: 1.6rem;
+
   }
 }

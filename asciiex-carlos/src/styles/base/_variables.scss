@@ -17,3 +17,8 @@ $white: white;
 $semi-transparent-white: rgba(255, 255, 255, .7);
 $text-color: #707070;
 $link-color: #68B9D2;
+
+$easeInOutCirc: cubic-bezier(0.785, 0.135, 0.150, 0.860);
+
+$easeOutCirc: cubic-bezier(0.075, 0.820, 0.165, 1.000);
+$easeInCirc: cubic-bezier(0.600, 0.040, 0.980, 0.335);

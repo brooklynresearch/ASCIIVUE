@@ -6,20 +6,24 @@ class AsciiCamera extends Component {
 		super(props);
 
 		this.getWebCamera = ::this.getWebCamera;
+		this.pauseCamera = ::this.pauseCamera;
+		this.restartCamera = ::this.restartCamera;
 	}
 
 	componentDidMount() {
+		let pixelRatio = window.devicePixelRatio;
+		let { pixelWidth, pixelHeight, height, width } = this.props;
 
 		this.videoStream = this.getWebCamera();
 
 		aalib.read.video.fromVideoElement(this.video, { autoplay: true })
-			.map(aalib.aa({ width: 73, height: 95 }))
+			.map(aalib.aa({ width: pixelWidth, height: pixelHeight }))
 			.map(aalib.render.canvas({
 				background: 'rgba(0,0,0,0)',
-				fontSize: 10,
-				lineHeight: 10,
-				height: 510,
-				width: 375,
+				fontSize: 10 * pixelRatio,
+				lineHeight: 10 * pixelRatio,
+				height: height * pixelRatio,
+				width: width * pixelRatio,
 				el: this.asciiCanvas
 			}))
 			.subscribe();
@@ -33,13 +37,20 @@ class AsciiCamera extends Component {
 		})
 	}
 
+	pauseCamera() {
+		this.video.pause();
+	}
+	restartCamera() {
+		this.video.play()
+	}
+
 	getWebCamera() {
 		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 			let webcam = navigator.mediaDevices.getUserMedia({
 				video: {
-					width: 160,
-					height: 120,
-					frameRate: 10
+					width: 73,
+					height: 95,
+					frameRate: 5
 				}
 			});
 			webcam.then(stream => {
@@ -50,11 +61,12 @@ class AsciiCamera extends Component {
 	}
 
 	render() {
+		let asciiCanvasStyle = { width: '100%', height: '100%' }
 		return(
 			<div className='wt-ascii-camera'>
         <video id="video" ref={ref => this.video = ref} width="640" height="480" controls/>
         <div className='wt-ascii-camera-container'>
-          <canvas ref={ref => this.asciiCanvas = ref} id="ascii-canvas"/>
+          <canvas style={asciiCanvasStyle} ref={ref => this.asciiCanvas = ref} id="ascii-canvas"/>
         </div>
 
       </div>)

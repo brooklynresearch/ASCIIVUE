@@ -8,8 +8,8 @@ class AsciiQuote extends Component {
 		super(props);
 
 		this.state = {
-			quote: '',
-			speechState: 'default'
+			quote: props.initialQuote,
+			speechState: props.initialQuote ? 'completed' : 'default'
 		}
 
 		this.startSpeechRecognition = ::this.startSpeechRecognition;
@@ -32,7 +32,11 @@ class AsciiQuote extends Component {
 		}
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		if(this.state.quote.length > 0) {
+			this.updateQuoteCanvas();
+		}
+	}
 
 
 	startSpeechRecognition() {
@@ -54,7 +58,13 @@ class AsciiQuote extends Component {
 		}
 
 		this.recognition.onspeechend = (event) => {
+
 			this.setState({ quote: this.state.quote, speechState: 'completed' });
+		}
+
+		this.recognition.onend = (event) => {
+			// if the user hasn't voiced any text. it should revert.
+			this.state.quote.length === 0 && this.setState({ speechState: 'default' });
 		}
 
 		this.recognition.start();
@@ -148,16 +158,24 @@ class AsciiQuote extends Component {
 			return <InputPartial enableKeyboard={this.props.enableKeyboard} disableSpeech={this.abortSpeechRecognition} enableSpeech={this.startSpeechRecognition}/>;
 		case 'quote':
 		case 'completed':
-			return <canvas id="quote-canvas" ref={ref => this.quoteCanvas = ref} width={width * pixelRatio} height={height * pixelRatio} style={quoteCanvasStyle}/>;
+			return <canvas id="quote-canvas" ref={ref => {
+          if(ref === null) return;
+          this.quoteCanvas = ref;
+        }
+        } width={width * pixelRatio} height={height * pixelRatio} style={quoteCanvasStyle}/>;
 		}
 	}
 
 	handleRetake() {
-		this.setState({ speechState: 'input' });
+		this.setState({ quote: '', speechState: 'input' });
+
 	}
 
 	handleConfirm() {
-		this.props.history.push('/print');
+		let { asciiPicture, finalDimensions } = this.props;
+		this.setState({ quote: '' });
+		let asciiQuote = this.quoteCanvas.toDataURL();
+		this.props.history.push('/print', { asciiPicture, asciiQuote, finalDimensions });
 	}
 
 	renderRetake() {

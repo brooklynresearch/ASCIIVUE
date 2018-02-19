@@ -9,7 +9,7 @@ class StartPartial extends Component {
 	render() {
 		return(
 			<section className='start-view'>
-					<Link to='/agreement'>
+					<Link to='/selection'>
 						<h2 className='start-link'>Start</h2>
 					</Link>
 			</section>
