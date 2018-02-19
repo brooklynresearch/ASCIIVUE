@@ -7,7 +7,7 @@ const AdaImage = () => <img src="/images/wt-ada-ascii.jpg"/>
 
 const KatImage = () => <img src="/images/wt-kat-ascii.jpg"/>
 
-const CameraImage = () => <AsciiCamera pixelWidth={67} pixelHeight={50} height={400} width={400}/>
+const CameraImage = () => <AsciiCamera pixelWidth={77} pixelHeight={95} height={400} width={400}/>
 
 const SelectionParital = () => (
 	<section className='wt-selection'>

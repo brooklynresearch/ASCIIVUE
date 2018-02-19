@@ -21,7 +21,8 @@ class AsciiCamera extends Component {
 			.map(aalib.render.canvas({
 				background: 'rgba(0,0,0,0)',
 				fontSize: 10 * pixelRatio,
-				lineHeight: 10 * pixelRatio,
+				lineHeight: 8 * pixelRatio,
+				charWidth: 10 * pixelRatio,
 				height: height * pixelRatio,
 				width: width * pixelRatio,
 				el: this.asciiCanvas
@@ -61,7 +62,8 @@ class AsciiCamera extends Component {
 	}
 
 	render() {
-		let asciiCanvasStyle = { width: '100%', height: '100%' }
+		let asciiCanvasStyle = { width: '100%', height: '100%' };
+
 		return(
 			<div className='wt-ascii-camera'>
         <video id="video" ref={ref => this.video = ref} width="640" height="480" controls/>

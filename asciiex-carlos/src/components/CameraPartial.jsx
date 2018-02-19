@@ -94,7 +94,7 @@ class CameraPartial extends Component {
 		let { cameraCanvasSize } = this.state;
 		return(
 			<article className='wt-camera-partial'>
-					<AsciiCamera ref={ref=> this.asciiCam = ref} pixelWidth={73} pixelHeight={95} {...cameraCanvasSize}/>
+					<AsciiCamera ref={ref=> this.asciiCam = ref} pixelWidth={73} pixelHeight={90} {...cameraCanvasSize}/>
 					{this.renderPictureQuote()}
 			</article>
 		)

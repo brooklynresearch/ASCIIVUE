@@ -13,7 +13,6 @@ const historyApiFallback = require('connect-history-api-fallback');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const printer = require('printer');
 
-console.log(printer.getPrinters());
 const httpsOptions = {
 	key: fs.readFileSync('./encryption-keys/key.pem', 'utf8'),
 	cert: fs.readFileSync('./encryption-keys/server.crt', 'utf8')
@@ -75,12 +74,26 @@ app.get('*', (req, res) => {
 });
 
 app.post('/save-image', (req, res) => {
-
 	let {
 		dataURL
 	} = req.body;
+	let saveDir = './images/'
+	let imageName = `wt-${Date.now()}`;
 
-	base64Img.img(dataURL, './images/', `wt-${Date.now()}`, function (err, filepath) {});
+	base64Img.img(dataURL, saveDir, imageName, function (err, filepath) {
+		// console.log(filepath);
+		// let printerName = printer.getPrinters()[0].name;
+		// printer.printFile({
+		// 	filename: filepath,
+		// 	printer: printerName,
+		// 	success: function (jobID) {
+		// 		console.log('sent to printer with ID: ' + jobID);
+		// 	},
+		// 	error: function (err) {
+		// 		console.log(err);
+		// 	}
+		// });
+	});
 });
 
 const server = https.createServer(httpsOptions, app);
