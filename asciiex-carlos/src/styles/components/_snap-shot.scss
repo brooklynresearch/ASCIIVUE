@@ -3,7 +3,7 @@
   display: flex;
 
   .wt-camera-icon {
-    background: url("/images/wt-camera-icon.png");
+    background: url("../assets/wt-camera-icon.png");
     width: 15vw;
     height: 15vw;
     background-size: cover;
@@ -31,7 +31,3 @@
     font-size: 1.4rem;
   }
 }
-
-// <div className='wt-photo-retake'>
-//   <div className='wt-retake'>Retake</div>
-//   <div className='wt-photo-confirm'>OK</div>

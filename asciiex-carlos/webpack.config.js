@@ -44,12 +44,12 @@ module.exports = {
 			}]
 		},
 			{
-				test: /\.(jpe?g|png|gif|svg)$/,
+				test: /\.(eot|ttf|woff|woff2|jpe?g|png|gif|svg)$/,
 				use: [
 					{
 						loader: 'url-loader',
 						options: {
-							limit: 20000
+							limit: 100000
 						}
 		},
 					{
@@ -57,11 +57,12 @@ module.exports = {
 						query: {
 							mozjpeg: {
 								progressive: true,
+								quality: 70
 							},
 							gifsicle: {
 								interlaced: false,
 							},
-							optipng: false,
+							optipng: true,
 							pngquant: {
 								floyd: 0.5,
 								speed: 2

@@ -89,7 +89,6 @@ class CameraPartial extends Component {
 	}
 
 	handleSubmit(e) {
-		this.handleRevertKeyboard();
 		if(e.keyCode === 13) {
 			this.setState({ quote: this.state.quote.replace('_', ''), speech: true, keyboard: false });
 		}
