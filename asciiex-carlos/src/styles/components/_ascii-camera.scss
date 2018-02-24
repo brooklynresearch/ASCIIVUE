@@ -7,11 +7,20 @@
   }
 
   .wt-ascii-camera-container {
+    overflow: hidden;
     height: 62.5vh;
     width: 88.8vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // height: 640px;
+    // width: 480px;
 
     #ascii-canvas {
-      @extend .fill-element;
+      // @extend .fill-element;
+      height: 120%;
+      width: 120%;
     }
   }
 

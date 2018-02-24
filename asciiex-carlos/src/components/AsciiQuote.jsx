@@ -9,7 +9,7 @@ class AsciiQuote extends Component {
 
 		this.state = {
 			quote: props.initialQuote,
-			speechState: props.initialQuote ? 'completed' : 'default'
+			speechState: 'completed'
 		}
 
 		this.startSpeechRecognition = ::this.startSpeechRecognition;
@@ -152,10 +152,6 @@ class AsciiQuote extends Component {
 		}
 
 		switch(speechState) {
-		case 'default':
-			return <div className='wt-microphone' onClick={this.handleMicrophoneClick}/>;
-		case 'input':
-			return <InputPartial enableKeyboard={this.props.enableKeyboard} disableSpeech={this.abortSpeechRecognition} enableSpeech={this.startSpeechRecognition}/>;
 		case 'quote':
 		case 'completed':
 			return <canvas id="quote-canvas" ref={ref => {
@@ -167,7 +163,7 @@ class AsciiQuote extends Component {
 	}
 
 	handleRetake() {
-		this.setState({ quote: '', speechState: 'input' });
+		this.props.history.push('input', { asciiPicture: this.props.asciiPicture });
 
 	}
 

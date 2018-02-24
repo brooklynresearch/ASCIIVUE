@@ -5,6 +5,7 @@ import AsciiCamera from 'AsciiCamera';
 import AsciiQuote from 'AsciiQuote';
 import SnapShot from 'SnapShot';
 import ManualModal from 'ManualModal';
+import ReactDOM from 'react-dom';
 
 class CameraPartial extends Component {
 	constructor(props) {
@@ -16,8 +17,8 @@ class CameraPartial extends Component {
 			pause: false,
 			asciiPicture: null,
 			asciiQuote: null,
-			quoteCanvasSize: { width: 400, height: 50 },
-			cameraCanvasSize: { width: 400, height: 510 }
+			quoteCanvasSize: { width: 480, height: 50 },
+			cameraCanvasSize: { width: 480, height: 640 }
 		}
 
 		this.handleConfirm = ::this.handleConfirm;
@@ -35,12 +36,41 @@ class CameraPartial extends Component {
 
 	handleConfirm() {
 		let asciiPicture = this.asciiCam.asciiCanvas.toDataURL()
-		this.setState({ asciiPicture, speech: true });
+		this.setState({ asciiPicture });
+		this.props.history.push('input', { asciiPicture });
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		//TODO: NEED TO DETECT KEYBOARD!!!
 
-	componentDidUpdate() {}
+		let { location } = this.props;
+
+		if(location.state) {
+			let { asciiPicture, asciiText } = location.state;
+			this.setState({ asciiPicture, quote: asciiText, speech: true });
+		}
+
+	}
+
+	componentDidUpdate() {
+		if(this.state.asciiPicture !== null) {
+
+			setTimeout(() => {
+				if(this.asciiCam) {
+					this.asciiCam.pauseCamera()
+					let { asciiCanvas } = this.asciiCam;
+					let ctx = this.asciiCam.asciiCanvas.getContext('2d');
+					ctx.clearRect(0, 0, asciiCanvas.width, asciiCanvas.height);
+					let img = new Image();
+					img.onload = () => {
+						ctx.drawImage(img, 0, 0);
+					}
+					img.src = this.state.asciiPicture;
+				}
+			}, 500);
+
+		}
+	}
 
 	handleOnFocus() {
 		this.handleRevertKeyboard();
@@ -69,7 +99,6 @@ class CameraPartial extends Component {
 		this.asciiCam.pauseCamera();
 	}
 
-
 	handleRestartCamera() {
 		this.asciiCam.restartCamera();
 	}
@@ -77,9 +106,7 @@ class CameraPartial extends Component {
 	renderPictureQuote() {
 		let { speech, keyboard, quoteCanvasSize, quote, asciiPicture, cameraCanvasSize } = this.state;
 
-		if(keyboard) {
-			return <ManualModal modalValue={quote} onFocus={this.handleOnFocus} onChange={this.handleOnChange} onBlur={this.handleBlur} onKeyDown={this.handleSubmit}/>;
-		} else if(speech) {
+		if(speech) {
 			return <AsciiQuote finalDimensions={{ quoteCanvasSize, cameraCanvasSize }} asciiPicture={asciiPicture} initialQuote={quote} enableKeyboard={this.handleKeyboard} {...quoteCanvasSize} maxWidth={300}/>;
 		} else {
 			return <SnapShot restartCamera={this.handleRestartCamera} pause={this.handlePauseCamera} confirm={this.handleConfirm} countDownFrom={3}/>;
@@ -91,10 +118,12 @@ class CameraPartial extends Component {
 	}
 
 	render() {
-		let { cameraCanvasSize } = this.state;
+		let { cameraCanvasSize, asciiPicture } = this.state;
+		let { history } = this.props;
+
 		return(
 			<article className='wt-camera-partial'>
-					<AsciiCamera ref={ref=> this.asciiCam = ref} pixelWidth={73} pixelHeight={90} {...cameraCanvasSize}/>
+					<AsciiCamera asciiPicture={asciiPicture} ref={ref=> this.asciiCam = ref} pixelWidth={120} pixelHeight={140} {...cameraCanvasSize}/>
 					{this.renderPictureQuote()}
 			</article>
 		)

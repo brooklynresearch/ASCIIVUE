@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import aalib from 'aalib.js';
+import logo from 'assets/wt-ada-ascii.jpg';
 
 class AsciiCamera extends Component {
 	constructor(props) {
@@ -8,9 +9,10 @@ class AsciiCamera extends Component {
 		this.getWebCamera = ::this.getWebCamera;
 		this.pauseCamera = ::this.pauseCamera;
 		this.restartCamera = ::this.restartCamera;
+		this.createAsciiFeed = ::this.createAsciiFeed;
 	}
 
-	componentDidMount() {
+	createAsciiFeed() {
 		let pixelRatio = window.devicePixelRatio;
 		let { pixelWidth, pixelHeight, height, width } = this.props;
 
@@ -20,14 +22,19 @@ class AsciiCamera extends Component {
 			.map(aalib.aa({ width: pixelWidth, height: pixelHeight }))
 			.map(aalib.render.canvas({
 				background: 'rgba(0,0,0,0)',
-				fontSize: 10 * pixelRatio,
-				lineHeight: 8 * pixelRatio,
-				charWidth: 10 * pixelRatio,
+				fontSize: 9 * pixelRatio,
+				lineHeight: 7 * pixelRatio,
+				charWidth: 7 * pixelRatio,
 				height: height * pixelRatio,
 				width: width * pixelRatio,
 				el: this.asciiCanvas
 			}))
 			.subscribe();
+	}
+
+	componentDidMount() {
+		this.createAsciiFeed();
+		console.log(logo);
 	}
 
 	componentWillUnmount() {
@@ -49,8 +56,8 @@ class AsciiCamera extends Component {
 		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 			let webcam = navigator.mediaDevices.getUserMedia({
 				video: {
-					width: 73,
-					height: 95,
+					width: 480,
+					height: 640,
 					frameRate: 5
 				}
 			});
@@ -66,9 +73,9 @@ class AsciiCamera extends Component {
 
 		return(
 			<div className='wt-ascii-camera'>
-        <video id="video" ref={ref => this.video = ref} width="640" height="480" controls/>
+        <video id="video" ref={ref => this.video = ref} width="480" height="640" controls/>
         <div className='wt-ascii-camera-container'>
-          <canvas style={asciiCanvasStyle} ref={ref => this.asciiCanvas = ref} id="ascii-canvas"/>
+          <canvas ref={ref => this.asciiCanvas = ref} id="ascii-canvas"/>
         </div>
 
       </div>)

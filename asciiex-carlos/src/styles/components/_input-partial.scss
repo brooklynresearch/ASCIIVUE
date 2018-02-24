@@ -1,33 +1,119 @@
 .wt-input-partial {
+
   font-size: 1.5rem;
-  display: flex;
-  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: $white;
 
-  .wt-speak {
-    @extend .link-text;
+  width: 100vw;
+  height: 86vh;
+  display: grid;
+  grid-template-rows: 4fr 2fr 4fr;
+  align-items: center;
+  justify-content: center;
+
+  .or {
     text-align: center;
-
   }
 
-  .wt-type {
-    align-self: center;
-    position: relative;
-    padding-top: 15px;
-    width: 40vw;
-
+  .wt-speak-prompt,
+  .wt-type-prompt {
+    display: flex;
+    flex-direction: column;
+    @extend .center;
     @extend .link-text;
-    font-size: 1rem;
+  }
 
-    .wt-keyboard {
-      position: absolute;
-      top: 2px;
-      margin: 1vw;
-      display: inline-block;
-      background: url("/images/wt-keyboard.png");
+  .wt-keyboard-text,
+  .wt-speak-text {
+    padding: 10px;
+    @extend .link-text;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .wt-speak-prompt {
+    .wt-microphone {
+      width: 20vw;
+      height: 20vw;
+      background: url("/images/wt-mic.png");
       background-size: cover;
-      width: 8vw;
-      height: 8vw;
     }
   }
 
+  .wt-type {
+    .wt-keyboard {
+
+      background: url("/images/wt-keyboard.png");
+      background-size: cover;
+      width: 15vw;
+      height: 15vw;
+    }
+  }
+
+}
+
+.wt-keyboard-partial,
+.wt-microphone-partial {
+  display: flex;
+  flex-direction: column;
+  @extend .center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 86vh;
+  background: $white;
+}
+
+.wt-listening {
+  @extend .link-text;
+  font-size: 1.5rem;
+  text-align: center;
+  width: 30vw;
+  height: 30vw;
+
+  .wt-loading {
+
+    width: 20vw;
+    padding: 2vw;
+  }
+}
+
+.wt-keyboard-partial {
+  display: flex;
+  @extend .center;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 86vh;
+
+  .wt-keyboard-modal {
+    display: flex;
+    @extend .center;
+    width: 80vw;
+    height: 20vh;
+    border-radius: 15px;
+    text-align: center;
+
+    .wt-keyboard-text {
+      font-size: 1.2rem;
+      color: $black;
+      display: flex;
+      @extend .center;
+      width: 60vw;
+      height: 15vh;
+    }
+
+  }
+
+  .wt-invisible-text-input {
+    opacity: 0;
+    z-index: -5000;
+    position: absolute;
+  }
 }

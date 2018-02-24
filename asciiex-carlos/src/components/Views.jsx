@@ -4,6 +4,7 @@ import AgreementParital from 'AgreementPartial';
 import CameraPartial from 'CameraPartial';
 import StartPartial from 'StartPartial';
 import PrintPartial from 'PrintPartial';
+import InputPartial from 'InputPartial';
 
 class Views extends Component {
 	constructor(props) {
@@ -14,7 +15,8 @@ class Views extends Component {
 			agreement: AgreementParital,
 			camera: CameraPartial,
 			start: StartPartial,
-			print: PrintPartial
+			print: PrintPartial,
+			input: InputPartial
 		}
 	}
 

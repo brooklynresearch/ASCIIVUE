@@ -3,3 +3,10 @@
   display: grid;
   grid-template-rows: 8fr 2fr;
 }
+
+.keyboard-check {
+  position: relative;
+  width: 96vw;
+  height: 67vh;
+  background: rgba(225, 225, 225, .5);
+}

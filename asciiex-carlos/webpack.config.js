@@ -53,7 +53,7 @@ module.exports = {
 						}
 		},
 					{
-						loader: 'image-webpack-loader',
+						loader: 'img-loader',
 						query: {
 							mozjpeg: {
 								progressive: true,
@@ -61,12 +61,10 @@ module.exports = {
 							gifsicle: {
 								interlaced: false,
 							},
-							optipng: {
-								optimizationLevel: 0,
-							},
+							optipng: false,
 							pngquant: {
-								quality: '100',
-								speed: 0,
+								floyd: 0.5,
+								speed: 2
 							}
 						}
 		 }]
