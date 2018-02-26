@@ -22,8 +22,8 @@ class AsciiCamera extends Component {
 			.map(aalib.aa({ width: pixelWidth, height: pixelHeight }))
 			.map(aalib.render.canvas({
 				background: 'rgba(0,0,0,0)',
-				fontSize: 9 * pixelRatio,
-				lineHeight: 7 * pixelRatio,
+				fontSize: 7 * pixelRatio,
+				lineHeight: 6 * pixelRatio,
 				charWidth: 7 * pixelRatio,
 				height: height * pixelRatio,
 				width: width * pixelRatio,
@@ -34,13 +34,11 @@ class AsciiCamera extends Component {
 
 	componentDidMount() {
 		this.createAsciiFeed();
-		console.log(logo);
 	}
 
 	componentWillUnmount() {
 		// stop the video stream everytime a component unmounts. If not done will cause performance issues/ multiple instances of webcam.
 		this.videoStream.then(stream => {
-			console.log(stream.getTracks()[0])
 			stream.getTracks()[0].stop();
 		})
 	}

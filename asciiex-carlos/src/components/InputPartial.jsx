@@ -2,14 +2,40 @@ import React, { Component } from 'react';
 import MicrophonePartial from 'MicrophonePartial';
 import KeyboardPartial from 'KeyboardPartial';
 import { debounce } from 'lodash';
+import { CSSTransition } from 'react-transition-group';
+import Shake from 'Shake';
+
+const InvalidLength = ({ ...props }) => {
+	return props.in ? (
+		<CSSTransition
+	    {...props}
+	    timeout={1000}
+	    classNames="fade"
+	  >
+			<div className='wt-invalid-length-container' onClick={props.onClick}>
+				<Shake in={props.in}>
+					<div className='wt-invalid-length'>
+						Sorry, That quote was too long. Try again.
+					</div>
+				</Shake>
+			</div>
+
+	  </CSSTransition>
+	) : null;
+}
 
 class InputPartial extends Component {
 
 	constructor(props) {
 		super(props);
+
+		let { location: { state } } = this.props;
+
 		this.state = {
 			inputState: 'default',
-			quote: ''
+			quote: '',
+			invalid: state.invalid,
+			lang: state.lang
 		}
 
 		this.renderUserInputStates = ::this.renderUserInputStates;
@@ -21,8 +47,10 @@ class InputPartial extends Component {
 
 	}
 
-	componentDidMount() {
+	componentDidMount() {}
 
+	componentWillUnmount() {
+		this.handleRevertKeyboard.cancel();
 	}
 
 	handleRevertKeyboard() {
@@ -31,8 +59,6 @@ class InputPartial extends Component {
 
 	handleSubmit(e, text) {
 		this.handleRevertKeyboard();
-
-		console.log(text);
 		if(e.keyCode === 13) {
 			let { history } = this.props
 			let formatedText = text.replace('_', '')
@@ -48,7 +74,7 @@ class InputPartial extends Component {
 		this.recognition = new SpeechRecognition();
 
 		this.recognition.continuous = true;
-		this.recognition.lang = 'en-US';
+		this.recognition.lang = this.state.lang;
 		this.recognition.interimResults = true;
 		this.recognition.maxAlternatives = 1;
 
@@ -62,7 +88,6 @@ class InputPartial extends Component {
 			let { history } = this.props;
 
 			history.push('camera', { asciiPicture: history.location.state.asciiPicture, asciiText: this.state.quote });
-			console.log('ended');
 		}
 
 		this.recognition.onend = (event) => {
@@ -81,7 +106,6 @@ class InputPartial extends Component {
 		this.recognition.abort();
 	}
 
-
 	renderUserInputStates(state) {
 		let microphoneProps = {
 			startSpeechRecognition: this.startSpeechRecognition,
@@ -98,6 +122,7 @@ class InputPartial extends Component {
 	}
 
 	render() {
+		console.log(this.props)
 		return(
 			<div className='wt-input-partial'>
 		    <div className='wt-speak' onClick={e=> this.setState({inputState: 'microphone'})}>
@@ -120,6 +145,7 @@ class InputPartial extends Component {
 					</div>
 			</div>
 			{this.renderUserInputStates(this.state.inputState)}
+			<InvalidLength onClick={e => this.setState({invalid: false})} in={this.state.invalid}/>
 		  </div>
 		)
 	}

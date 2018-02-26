@@ -10,3 +10,39 @@
     font-size: 2.5rem;
   }
 }
+
+.wt-lang-opt {
+  display: flex;
+  flex-direction: column;
+  @extend .center;
+  position: absolute;
+  width: 100vw;
+  height: 86.5vh;
+  background: $white;
+
+  .wt-language {
+    padding: 2px;
+  }
+}
+
+.wt-hidden {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6vw;
+  height: 6vw;
+}
+
+.wt-exit-opt {
+  padding: 5px;
+  text-align: center;
+  width: 6vw;
+  height: 6vw;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.wt-exit-opt::before {
+  content: "X";
+}

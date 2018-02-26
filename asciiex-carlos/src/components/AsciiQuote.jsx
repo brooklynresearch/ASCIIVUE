@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import InputPartial from 'InputPartial';
 import Retake from 'Retake';
 import { withRouter } from 'react-router-dom';
 
@@ -9,20 +8,12 @@ class AsciiQuote extends Component {
 
 		this.state = {
 			quote: props.initialQuote,
-			speechState: 'completed'
 		}
 
-		this.startSpeechRecognition = ::this.startSpeechRecognition;
 		this.updateQuoteCanvas = ::this.updateQuoteCanvas;
 		this.wrapText = ::this.wrapText;
-		this.capitalize = ::this.capitalize;
-		this.handleMicrophoneClick = ::this.handleMicrophoneClick;
-		this.renderUserInputStates = ::this.renderUserInputStates;
 		this.handleConfirm = ::this.handleConfirm;
 		this.handleRetake = ::this.handleRetake;
-		this.renderRetake = ::this.renderRetake;
-		this.abortSpeechRecognition = ::this.abortSpeechRecognition;
-
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -38,46 +29,6 @@ class AsciiQuote extends Component {
 		}
 	}
 
-
-	startSpeechRecognition() {
-		let SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-		let SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
-		let SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
-
-		this.recognition = new SpeechRecognition();
-
-		this.recognition.continuous = true;
-		this.recognition.lang = 'en-US';
-		this.recognition.interimResults = true;
-		this.recognition.maxAlternatives = 1;
-
-		this.recognition.onresult = (event) => {
-			let quote = event.results[event.results.length - 1][0].transcript;
-			quote = `\"${this.capitalize(quote)}.\"`;
-			this.setState({ quote, speechState: 'quote' });
-		}
-
-		this.recognition.onspeechend = (event) => {
-
-			this.setState({ quote: this.state.quote, speechState: 'completed' });
-		}
-
-		this.recognition.onend = (event) => {
-			// if the user hasn't voiced any text. it should revert.
-			this.state.quote.length === 0 && this.setState({ speechState: 'default' });
-		}
-
-		this.recognition.start();
-	}
-
-	abortSpeechRecognition() {
-		this.recognition.abort();
-	}
-
-	capitalize(string) {
-		return string.charAt(0).toUpperCase() + string.slice(1);
-	}
-
 	updateQuoteCanvas() {
 
 		// TODO: Create a function that returns all computations. Will allow reusability.
@@ -86,7 +37,7 @@ class AsciiQuote extends Component {
 		let { maxWidth } = this.props;
 		let { width, height } = this.quoteCanvas;
 		let pixelRatio = window.devicePixelRatio;
-		let fontSize = 18 * pixelRatio;
+		let fontSize = 25 * pixelRatio;
 		let center = width / 2;
 		let adjustedHeight = height - (35 * pixelRatio);
 		let adjustedMaxWidth = (maxWidth * pixelRatio);
@@ -128,19 +79,26 @@ class AsciiQuote extends Component {
 			y += lineHeight;
 
 			if((y - initY) / initLineHeight > 2) {
-				alert('Quote Too long, retry!');
-				this.setState({ quote: '' });
+				// retrun to input selection and
+				this.props.history.push('input', { asciiPicture: this.props.asciiPicture, invalid: true });
 				return;
 			}
 		}
 	}
 
-	handleMicrophoneClick(e) {
-		e.preventDefault();
-		this.setState({ speechState: 'input' });
+	handleRetake() {
+		this.props.history.push('input', { asciiPicture: this.props.asciiPicture, invalid: false });
 	}
 
-	renderUserInputStates(speechState) {
+	handleConfirm() {
+		let { asciiPicture, finalDimensions } = this.props;
+
+		this.setState({ quote: '' });
+		let asciiQuote = this.quoteCanvas.toDataURL();
+		this.props.history.push('/print', { asciiPicture, asciiQuote, finalDimensions });
+	}
+
+	render() {
 		let { width, height } = this.props;
 		let pixelRatio = window.devicePixelRatio;
 
@@ -150,39 +108,14 @@ class AsciiQuote extends Component {
 			width: width + 'px',
 			height: height + 'px'
 		}
-
-		switch(speechState) {
-		case 'quote':
-		case 'completed':
-			return <canvas id="quote-canvas" ref={ref => {
-          if(ref === null) return;
-          this.quoteCanvas = ref;
-        }
-        } width={width * pixelRatio} height={height * pixelRatio} style={quoteCanvasStyle}/>;
-		}
-	}
-
-	handleRetake() {
-		this.props.history.push('input', { asciiPicture: this.props.asciiPicture });
-
-	}
-
-	handleConfirm() {
-		let { asciiPicture, finalDimensions } = this.props;
-		this.setState({ quote: '' });
-		let asciiQuote = this.quoteCanvas.toDataURL();
-		this.props.history.push('/print', { asciiPicture, asciiQuote, finalDimensions });
-	}
-
-	renderRetake() {
-		return this.state.speechState === 'completed' ? <Retake onRetake={this.handleRetake} onConfirm={this.handleConfirm}/> : <div></div>;
-	}
-
-	render() {
 		return(
 			<div className='wt-ascii-quote-container'>
-        {this.renderUserInputStates(this.state.speechState)}
-        {this.renderRetake()}
+				<canvas id="quote-canvas" ref={ref => {
+	          if(ref === null) return;
+	          this.quoteCanvas = ref;
+	        }
+	        } width={width * pixelRatio} height={height * pixelRatio} style={quoteCanvasStyle}/>
+        <Retake onRetake={this.handleRetake} onConfirm={this.handleConfirm}/>
       </div>
 		)
 	}

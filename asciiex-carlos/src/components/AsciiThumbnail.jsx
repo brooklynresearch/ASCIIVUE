@@ -14,9 +14,9 @@ class AsciiThumbnail extends Component {
 			<Link to={to} style={{width, height}} className={`ascii-thumbnail ${className}`}>
         <div style={backgroundStyle} className='ascii-background'>
           {component()}
-          <div className='ascii-foreground'>
+          {title ? <div className='ascii-foreground'>
             {title}
-          </div>
+          </div> : null}
         </div>
 
       </Link>

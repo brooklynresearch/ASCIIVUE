@@ -49,7 +49,7 @@ module.exports = {
 					{
 						loader: 'url-loader',
 						options: {
-							limit: 100000
+							limit: 200000
 						}
 		},
 					{
@@ -72,16 +72,6 @@ module.exports = {
 	 }]
 	},
 	plugins: [
-		new CopyWebpackPlugin([
-			{
-				from: './src/manifest.json',
-				to: path.join(__dirname, 'public')
-			},
-			{
-				from: './src/assets/',
-				to: path.join(__dirname, 'public/images/')
-			}
-  ]),
 		new webpack.optimize.CommonsChunkPlugin({
 			names: ['vendor', 'manifest']
 		}),
@@ -100,20 +90,6 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     // Use NoErrorsPlugin for webpack 1.x
     new webpack.NoEmitOnErrorsPlugin()
-		// new webpack.optimize.UglifyJsPlugin({
-		// 	mangle: true,
-		// 	compress: {
-		// 		warnings: false, // Suppress uglification warnings
-		// 		pure_getters: false,
-		// 		unsafe: true,
-		// 		unsafe_comps: true,
-		// 		screw_ie8: true
-		// 	},
-		// 	output: {
-		// 		comments: false,
-		// 	},
-		// 	exclude: [/\.min\.js$/gi] // skip pre-minified libs
-		// })
 	],
 	devServer: {
 		contentBase: path.join(__dirname, "public"),
@@ -124,3 +100,33 @@ module.exports = {
 	},
 	devtool: 'cheap-module-source-map'
 };
+
+//Possible plugins
+
+/*
+new CopyWebpackPlugin([
+	{
+		from: './src/manifest.json',
+		to: path.join(__dirname, 'public')
+	},
+	{
+		from: './src/assets/',
+		to: path.join(__dirname, 'public/images/')
+	}
+]),
+
+new webpack.optimize.UglifyJsPlugin({
+	mangle: true,
+	compress: {
+		warnings: false, // Suppress uglification warnings
+		pure_getters: false,
+		unsafe: true,
+		unsafe_comps: true,
+		screw_ie8: true
+	},
+	output: {
+		comments: false,
+	},
+	exclude: [/\.min\.js$/gi] // skip pre-minified libs
+})
+*/

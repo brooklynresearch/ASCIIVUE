@@ -80,6 +80,8 @@ app.post('/save-image', (req, res) => {
 	let saveDir = './images/'
 	let imageName = `wt-${Date.now()}`;
 
+	// TODO: Delete image after it's sent to the dymo printer.
+
 	base64Img.img(dataURL, saveDir, imageName, function (err, filepath) {
 		// console.log(filepath);
 		// let printerName = printer.getPrinters()[0].name;

@@ -12,7 +12,22 @@
     display: flex;
 
     .wt-ascii-camera-preview {
-      font-size: 1.5rem;
+      display: flex;
+      @extend .center;
+
+      font-size: 2rem;
+      text-align: center;
+
+      .ascii-background {
+        display: flex;
+        @extend .center;
+      }
+
+      .wt-ascii-self-portrait {
+        height: auto;
+        width: 45vw;
+        @extend .link-text;
+      }
     }
 
   }
