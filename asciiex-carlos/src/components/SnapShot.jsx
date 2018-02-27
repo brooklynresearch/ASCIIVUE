@@ -86,7 +86,7 @@ class SnapShot extends Component {
 		let interval = setInterval(() => {
 			seconds--
 			if(seconds == 2) {
-				this.flashPromise = this.fireRearCameraFlash();
+				// this.flashPromise = this.fireRearCameraFlash();
 			}
 			// Display 'counter' wherever you want to display it.
 			if(seconds == 0) {
@@ -113,9 +113,9 @@ class SnapShot extends Component {
 			countdown: CameraCountDown,
 			retake: Retake
 		}
-		if(action == 'retake') {
-			setTimeout(this.disableFlash, 1000);
-		}
+		// if(action == 'retake') {
+		// 	setTimeout(this.disableFlash, 1000);
+		// }
 
 		return cameraAction[action]({ seconds, ...handlers });
 	}

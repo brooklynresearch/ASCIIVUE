@@ -81,10 +81,9 @@ class InputPartial extends Component {
 		this.recognition.onresult = (event) => {
 			let quote = event.results[0][0].transcript;
 			quote = `\"${this.capitalize(quote)}.\"`;
-			console.log(quote);
-			console.log("done");
 			let { history } = this.props;
 
+			this.setState({ quote });
 			history.push('camera', { asciiPicture: history.location.state.asciiPicture, asciiText: quote });
 			this.recognition.stop();
 		}

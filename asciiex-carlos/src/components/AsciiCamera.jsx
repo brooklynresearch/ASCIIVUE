@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import aalib from 'aalib.js';
 import logo from 'assets/wt-ada-ascii.jpg';
-import Array2D from 'array2d';
 
 class AsciiCamera extends Component {
 	constructor(props) {
@@ -20,7 +19,7 @@ class AsciiCamera extends Component {
 		this.videoStream = this.getWebCamera();
 
 		aalib.read.video.fromVideoElement(this.video, { autoplay: true })
-			.map(aalib.aa({ width: pixelWidth, height: pixelHeight }))
+			.map(aalib.aa({ width: pixelWidth, height: pixelHeight })).do((x) => console.log(x))
 			.map(aalib.render.canvas({
 				fontSize: 11 * pixelRatio,
 				lineHeight: 11 * pixelRatio,
