@@ -17,7 +17,7 @@ class CameraPartial extends Component {
 			pause: false,
 			asciiPicture: null,
 			asciiQuote: null,
-			quoteCanvasSize: { width: 588, height: 60 },
+			quoteCanvasSize: { width: 588, height: 169 },
 			cameraCanvasSize: { width: 588, height: 723 }
 		}
 
@@ -32,7 +32,6 @@ class CameraPartial extends Component {
 		let { state } = location;
 		let asciiPicture = this.asciiCam.asciiCanvas.toDataURL();
 		this.setState({ asciiPicture });
-		console.log(state);
 		this.props.history.push('input', { asciiPicture, invalid: false, ...state });
 	}
 
@@ -80,7 +79,7 @@ class CameraPartial extends Component {
 		let { speech, keyboard, quoteCanvasSize, quote, asciiPicture, cameraCanvasSize } = this.state;
 
 		if(speech) {
-			return <AsciiQuote finalDimensions={{quoteCanvasSize, cameraCanvasSize}} asciiPicture={asciiPicture} initialQuote={quote} {...quoteCanvasSize} maxWidth={380}/>;
+			return <AsciiQuote finalDimensions={{quoteCanvasSize, cameraCanvasSize}} asciiPicture={asciiPicture} initialQuote={quote} {...quoteCanvasSize} maxWidth={585}/>;
 		} else {
 			return <SnapShot restartCamera={this.handleRestartCamera} pause={this.handlePauseCamera} confirm={this.handleConfirm} countDownFrom={3}/>;
 		}
@@ -92,7 +91,7 @@ class CameraPartial extends Component {
 
 		return(
 			<article className='wt-camera-partial'>
-					<AsciiCamera asciiPicture={asciiPicture} ref={ref=> this.asciiCam = ref} pixelWidth={140} pixelHeight={120} {...cameraCanvasSize}/>
+					<AsciiCamera asciiPicture={asciiPicture} ref={ref=> this.asciiCam = ref} pixelWidth={89} pixelHeight={72} {...cameraCanvasSize}/>
 					{this.renderPictureQuote()}
 			</article>
 		)

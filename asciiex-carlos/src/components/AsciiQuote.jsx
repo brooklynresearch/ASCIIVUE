@@ -37,9 +37,9 @@ class AsciiQuote extends Component {
 		let { maxWidth } = this.props;
 		let { width, height } = this.quoteCanvas;
 		let pixelRatio = window.devicePixelRatio;
-		let fontSize = 25 * pixelRatio;
+		let fontSize = 30 * pixelRatio;
 		let center = width / 2;
-		let adjustedHeight = height - (35 * pixelRatio);
+		let adjustedHeight = height / 2;
 		let adjustedMaxWidth = (maxWidth * pixelRatio);
 		let padding = 10 * pixelRatio;
 		let lineHeight = fontSize + padding;
@@ -78,7 +78,7 @@ class AsciiQuote extends Component {
 			ctx.fillText(line, x, y);
 			y += lineHeight;
 
-			if((y - initY) / initLineHeight > 2) {
+			if((y - initY) / initLineHeight > 3) {
 				// retrun to input selection and
 				this.props.history.push('input', { asciiPicture: this.props.asciiPicture, invalid: true });
 				return;
@@ -104,17 +104,16 @@ class AsciiQuote extends Component {
 
 		// NOTE: In order to remove unwanted blurryness on canvas all dimensions need to be multiplied by the device pixel Ratio then scaled back down with styles to the correct dimensions.
 
-		let quoteCanvasStyle = {
-			width: width + 'px',
-			height: height + 'px'
-		}
 		return(
 			<div className='wt-ascii-quote-container'>
-				<canvas id="quote-canvas" ref={ref => {
-	          if(ref === null) return;
-	          this.quoteCanvas = ref;
-	        }
-	        } width={width * pixelRatio} height={height * pixelRatio} style={quoteCanvasStyle}/>
+				<div className='wt-quote-canvas-container'>
+					<canvas id="quote-canvas" ref={ref => {
+		          if(ref === null) return;
+		          this.quoteCanvas = ref;
+		        }
+		        } width={width * pixelRatio} height={height * pixelRatio}/>
+				</div>
+
         <Retake onRetake={this.handleRetake} onConfirm={this.handleConfirm}/>
       </div>
 		)

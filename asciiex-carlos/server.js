@@ -33,7 +33,10 @@ const ip = require('lodash')
 
 const app = express();
 
-const compiler = webpack(webpackConfig);
+// const compiler = webpack(webpackConfig);
+
+const DELETE_AFTER_PRINT = false;
+
 app.set('port', port);
 
 
@@ -41,20 +44,20 @@ app.use(historyApiFallback({
 	verbose: false
 }));
 
-app.use(webpackMiddleware(compiler, {
-	contentBase: path.join(__dirname, "public"),
-	publicPath: webpackConfig.output.publicPath,
-	noInfo: true,
-	hot: true,
-	quiet: false,
-	noInfo: false,
-	lazy: false,
-	stats: {
-		colors: true
-	}
-}));
+// app.use(webpackMiddleware(compiler, {
+// 	contentBase: path.join(__dirname, "public"),
+// 	publicPath: webpackConfig.output.publicPath,
+// 	noInfo: true,
+// 	hot: true,
+// 	quiet: false,
+// 	noInfo: false,
+// 	lazy: false,
+// 	stats: {
+// 		colors: true
+// 	}
+// }));
 
-app.use(webpackHotMiddleware(compiler));
+// app.use(webpackHotMiddleware(compiler));
 
 app.use(express.static(__dirname + '/public'));
 
@@ -79,22 +82,31 @@ app.post('/save-image', (req, res) => {
 	} = req.body;
 	let saveDir = './images/'
 	let imageName = `wt-${Date.now()}`;
-
-	// TODO: Delete image after it's sent to the dymo printer.
+	res.send({});
 
 	base64Img.img(dataURL, saveDir, imageName, function (err, filepath) {
-		// console.log(filepath);
-		// let printerName = printer.getPrinters()[0].name;
-		// printer.printFile({
-		// 	filename: filepath,
-		// 	printer: printerName,
-		// 	success: function (jobID) {
-		// 		console.log('sent to printer with ID: ' + jobID);
-		// 	},
-		// 	error: function (err) {
-		// 		console.log(err);
-		// 	}
-		// });
+
+		let printerName = printer.getPrinters()[0].name;
+
+		printer.printFile({
+			filename: filepath,
+			printer: printerName,
+			success: (jobID) => {
+				console.log('sent to printer with ID: ' + jobID);
+				if (DELETE_AFTER_PRINT) {
+					fs.unlink(filepath, err => {
+						if (err) {
+							console.log(`${filepath} has not been deleted`, err);
+						} else {
+							console.log(`${filepath} has been deleted`)
+						}
+					});
+				}
+			},
+			error: function (err) {
+				console.log(err);
+			}
+		});
 	});
 });
 

@@ -4,10 +4,16 @@
   grid-template-rows: 1fr 1fr;
   width: 100vw;
 
-  #quote-canvas {
-    align-self: start;
-    width: 100%;
-    height: 100%;
+  .wt-quote-canvas-container {
+    position: relative;
+    top: -1vh;
+    display: flex;
+    @extend .center;
+
+    #quote-canvas {
+      align-self: start;
+      width: 60%;
+    }
   }
 
   .wt-photo-retake {

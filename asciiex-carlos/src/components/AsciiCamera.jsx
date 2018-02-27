@@ -21,10 +21,9 @@ class AsciiCamera extends Component {
 		aalib.read.video.fromVideoElement(this.video, { autoplay: true })
 			.map(aalib.aa({ width: pixelWidth, height: pixelHeight }))
 			.map(aalib.render.canvas({
-				background: 'rgba(0,0,0,0)',
-				fontSize: 7 * pixelRatio,
-				lineHeight: 6 * pixelRatio,
-				charWidth: 7 * pixelRatio,
+				fontSize: 11 * pixelRatio,
+				lineHeight: 11 * pixelRatio,
+				charWidth: 6 * pixelRatio,
 				height: height * pixelRatio,
 				width: width * pixelRatio,
 				el: this.asciiCanvas
@@ -75,7 +74,6 @@ class AsciiCamera extends Component {
         <div className='wt-ascii-camera-container'>
           <canvas ref={ref => this.asciiCanvas = ref} id="ascii-canvas"/>
         </div>
-
       </div>)
 	}
 }

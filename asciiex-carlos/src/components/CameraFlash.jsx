@@ -24,7 +24,7 @@ const CameraFlash = ({ in: inProp }) => (
         ...defaultStyle,
         ...transitionStyles[state]
       }}>
-			
+
       </div>
     )}
   </Transition>

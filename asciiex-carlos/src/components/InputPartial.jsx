@@ -122,7 +122,6 @@ class InputPartial extends Component {
 	}
 
 	render() {
-		console.log(this.props)
 		return(
 			<div className='wt-input-partial'>
 		    <div className='wt-speak' onClick={e=> this.setState({inputState: 'microphone'})}>
