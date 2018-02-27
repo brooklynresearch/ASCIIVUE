@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import aalib from 'aalib.js';
 import logo from 'assets/wt-ada-ascii.jpg';
+import Array2D from 'array2d';
 
 class AsciiCamera extends Component {
 	constructor(props) {

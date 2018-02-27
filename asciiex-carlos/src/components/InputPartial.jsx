@@ -73,22 +73,22 @@ class InputPartial extends Component {
 
 		this.recognition = new SpeechRecognition();
 
-		this.recognition.continuous = true;
+		this.recognition.continuous = false;
 		this.recognition.lang = this.state.lang;
-		this.recognition.interimResults = true;
-		this.recognition.maxAlternatives = 1;
+		this.recognition.interimResults = false;
+		this.recognition.maxAlternatives = 0;
 
 		this.recognition.onresult = (event) => {
-			let quote = event.results[event.results.length - 1][0].transcript;
+			let quote = event.results[0][0].transcript;
 			quote = `\"${this.capitalize(quote)}.\"`;
-			this.setState({ quote });
-		}
-
-		this.recognition.onspeechend = (event) => {
+			console.log(quote);
+			console.log("done");
 			let { history } = this.props;
 
-			history.push('camera', { asciiPicture: history.location.state.asciiPicture, asciiText: this.state.quote });
+			history.push('camera', { asciiPicture: history.location.state.asciiPicture, asciiText: quote });
+			this.recognition.stop();
 		}
+
 
 		this.recognition.onend = (event) => {
 			// if the user hasn't voiced any text. it should revert.

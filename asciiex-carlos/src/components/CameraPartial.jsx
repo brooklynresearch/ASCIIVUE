@@ -52,17 +52,18 @@ class CameraPartial extends Component {
 
 			setTimeout(() => {
 				if(this.asciiCam) {
-					this.asciiCam.pauseCamera()
-					let { asciiCanvas } = this.asciiCam;
-					let ctx = this.asciiCam.asciiCanvas.getContext('2d');
-					ctx.clearRect(0, 0, asciiCanvas.width, asciiCanvas.height);
+
 					let img = new Image();
 					img.onload = () => {
+						this.asciiCam.pauseCamera()
+						let { asciiCanvas } = this.asciiCam;
+						let ctx = this.asciiCam.asciiCanvas.getContext('2d');
+						ctx.clearRect(0, 0, asciiCanvas.width, asciiCanvas.height);
 						ctx.drawImage(img, 0, 0);
 					}
 					img.src = this.state.asciiPicture;
 				}
-			}, 500);
+			}, 200);
 
 		}
 	}

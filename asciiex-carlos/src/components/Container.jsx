@@ -23,9 +23,7 @@ class Container extends Component {
 							</FadePages>
 							</section>
 		        <footer className='wt-footer'>
-							<Link to='/'>
 								<div className='wt-logo'/>
-							</Link>
 		        </footer>
 		      </article>
         </BrowserRouter>
