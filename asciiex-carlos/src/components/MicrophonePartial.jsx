@@ -5,6 +5,9 @@ class MicrophonePartial extends React.Component {
 	constructor(props) {
 		super(props);
 		this.getDotsWaveTl = ::this.getDotsWaveTl;
+		this.state = {
+			captureComplete: false
+		}
 	}
 
 	componentDidMount() {
@@ -13,8 +16,12 @@ class MicrophonePartial extends React.Component {
 		tl.timeScale(2);
 
 		this.props.startSpeechRecognition();
+		let progressTl = new TimelineMax({ onComplete: () => this.setState({ captureComplete: true }) });
+		progressTl.to(this.bar, 6, { width: 300 });
 
 	}
+
+
 
 	getDotsWaveTl(dots) {
 		var dotsWaveTl = new TimelineMax();
@@ -53,8 +60,11 @@ class MicrophonePartial extends React.Component {
               <path fill="#5eab66" d="M339.37 52.87c-13.7.68-26.57-11.94-26.3-26.58.25-13.85 12.11-26.43 26.92-26.08a26.52 26.52 0 0 1 25.78 26.71 26.06 26.06 0 0 1-26.4 25.95z"/>
             </svg>
           </div>
-          Listening...
+          {this.state.captureComplete ? 'Processing...': 'Listening...'}
         </div>
+				<div className='wt-progress-bar' style={{width:'300px', background: '#BCD1DD'}}>
+					<div style={{background: "#4d8de9", width:'1px', height: '1vh'}} ref={ref => this.bar = ref} id='wt-bar' className='wt-bar'/>
+				</div>
       </div>)
 	}
 

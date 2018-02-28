@@ -77,12 +77,7 @@ class InputPartial extends Component {
 		this.recognition.lang = this.state.lang;
 		this.recognition.interimResults = false;
 		this.recognition.maxAlternatives = 0;
-		this.recognition.onsoundstart(event) => {
-			setTimeout(() => {
-				this.recognition.stop();
-			}, 5000);
 
-		}
 		this.recognition.onresult = (event) => {
 			let quote = event.results[0][0].transcript;
 			quote = `\"${this.capitalize(quote)}.\"`;
@@ -100,6 +95,7 @@ class InputPartial extends Component {
 		}
 
 		this.recognition.start();
+		setTimeout(() => this.recognition.stop(), 6000);
 	}
 
 	capitalize(string) {
