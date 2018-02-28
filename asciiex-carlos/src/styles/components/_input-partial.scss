@@ -1,0 +1,175 @@
+.wt-input-partial {
+
+  font-size: 1.5rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: $white;
+
+  width: 100vw;
+  height: 86vh;
+  display: grid;
+  grid-template-rows: 4fr 2fr 4fr;
+  align-items: center;
+  justify-content: center;
+
+  .or {
+    text-align: center;
+  }
+
+  .wt-speak-prompt,
+  .wt-type-prompt {
+    display: flex;
+    flex-direction: column;
+    @extend .center;
+    @extend .link-text;
+  }
+
+  .wt-keyboard-text,
+  .wt-speak-text {
+    padding: 10px;
+    @extend .link-text;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .wt-speak-prompt {
+    .wt-microphone {
+      width: 20vw;
+      height: 20vw;
+      background: url("../assets/wt-mic.png");
+      background-size: cover;
+    }
+  }
+
+  .wt-type {
+    .wt-keyboard {
+
+      background: url("../assets/wt-keyboard.png");
+      background-size: cover;
+      width: 15vw;
+      height: 15vw;
+    }
+  }
+
+}
+
+.wt-keyboard-partial,
+.wt-microphone-partial {
+  display: flex;
+  flex-direction: column;
+  @extend .center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 86vh;
+  background: $white;
+}
+
+.wt-listening {
+  @extend .link-text;
+  font-size: 1.5rem;
+  text-align: center;
+  width: 30vw;
+  height: 30vw;
+
+  .wt-loading {
+
+    width: 20vw;
+    padding: 2vw;
+  }
+}
+
+.wt-keyboard-partial {
+  display: flex;
+  @extend .center;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 86vh;
+
+  .wt-keyboard-modal {
+    display: flex;
+    @extend .center;
+    width: 80vw;
+    height: 20vh;
+    border-radius: 15px;
+    text-align: center;
+
+    .wt-keyboard-text {
+      font-size: 1.2rem;
+      color: $black;
+      display: flex;
+      @extend .center;
+      width: 60vw;
+      height: 15vh;
+    }
+
+  }
+
+  .wt-invisible-text-input {
+    opacity: 0;
+    z-index: -5000;
+    position: absolute;
+  }
+}
+
+.wt-invalid-length-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 86.5vh;
+  display: flex;
+  @extend .center;
+  z-index: 10000;
+  background: $blackTransparent1;
+
+  .wt-invalid-length {
+    font-size: 1rem;
+    text-align: center;
+    color: $black;
+    display: flex;
+    @extend .center;
+    width: 80vw;
+    height: 23vh;
+    background: $white;
+    border: 1px solid $black;
+    box-shadow: 0 5px 5px $blackTransparent;
+    border-radius: 5px;
+  }
+}
+
+.ahashakeheartache {
+  -webkit-animation: kf_shake 0.4s 1 linear;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(30px);
+  }
+
+  20% {
+    transform: translate(-30px);
+  }
+
+  40% {
+    transform: translate(15px);
+  }
+
+  60% {
+    transform: translate(-15px);
+  }
+
+  80% {
+    transform: translate(8px);
+  }
+
+  100% {
+    transform: translate(0px);
+  }
+}

@@ -1,0 +1,23 @@
+.wt-ascii-quote-container {
+  @extend .center;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  width: 100vw;
+
+  .wt-quote-canvas-container {
+    position: relative;
+    top: -1vh;
+    display: flex;
+    @extend .center;
+
+    #quote-canvas {
+      align-self: start;
+      width: 60%;
+    }
+  }
+
+  .wt-photo-retake {
+    width: 100%;
+  }
+
+}

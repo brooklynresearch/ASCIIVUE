@@ -1,0 +1,28 @@
+.wt-agreement-partial {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 6fr 4fr;
+
+  .wt-agreement-text {
+    align-self: end;
+    font-size: 1.6rem;
+    text-align: center;
+    width: 80vw;
+  }
+
+  .wt-agreement-confirm {
+    align-self: start;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 1.4rem;
+
+    * {
+      @extend .link-text;
+      height: 17vh;
+      display: flex;
+      @extend .center;
+    }
+  }
+}

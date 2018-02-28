@@ -1,0 +1,62 @@
+.wt-selection {
+  @extend .center;
+  width: 100vw;
+  height: 86vh;
+
+  display: grid;
+  grid-template-rows: 2fr 4fr 3fr 4fr 2fr;
+
+  .selection-top-row {
+    position: relative;
+    @extend .center;
+    display: flex;
+
+    .wt-ascii-camera-preview {
+      display: flex;
+      @extend .center;
+
+      font-size: 2rem;
+      text-align: center;
+
+      .ascii-background {
+        display: flex;
+        @extend .center;
+      }
+
+      .wt-ascii-self-portrait {
+        height: auto;
+        width: 45vw;
+        @extend .link-text;
+      }
+    }
+
+  }
+
+  .selection-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    a {
+      width: 100% !important;
+    }
+
+    .right {
+      div {
+        margin-left: auto !important;
+      }
+    }
+
+    .left {
+      div {
+        margin-right: auto !important;
+      }
+    }
+  }
+
+  .or {
+    display: flex;
+    @extend .center;
+    font-size: 1.6rem;
+
+  }
+}

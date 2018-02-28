@@ -1,0 +1,19 @@
+.wt-print-partial {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 3fr 4fr;
+  text-align: center;
+  font-size: 2.3rem;
+
+  .wt-thanks {
+    height: 7vh;
+    align-self: end;
+  }
+
+  .wt-printing {
+    padding-top: 7vh;
+    align-self: start;
+
+  }
+
+}

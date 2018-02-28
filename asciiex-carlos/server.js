@@ -11,6 +11,7 @@ const webpackConfig = require('./webpack.config');
 const webpackMiddleware = require('webpack-dev-middleware');
 const historyApiFallback = require('connect-history-api-fallback');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const printer = require('printer');
 
 const httpsOptions = {
 	key: fs.readFileSync('./encryption-keys/key.pem', 'utf8'),
@@ -32,7 +33,10 @@ const ip = require('lodash')
 
 const app = express();
 
-const compiler = webpack(webpackConfig);
+// const compiler = webpack(webpackConfig);
+
+const DELETE_AFTER_PRINT = false;
+
 app.set('port', port);
 
 
@@ -40,20 +44,20 @@ app.use(historyApiFallback({
 	verbose: false
 }));
 
-app.use(webpackMiddleware(compiler, {
-	contentBase: path.join(__dirname, "public"),
-	publicPath: webpackConfig.output.publicPath,
-	noInfo: true,
-	hot: true,
-	quiet: false,
-	noInfo: false,
-	lazy: false,
-	stats: {
-		colors: true
-	}
-}));
+// app.use(webpackMiddleware(compiler, {
+// 	contentBase: path.join(__dirname, "public"),
+// 	publicPath: webpackConfig.output.publicPath,
+// 	noInfo: true,
+// 	hot: true,
+// 	quiet: false,
+// 	noInfo: false,
+// 	lazy: false,
+// 	stats: {
+// 		colors: true
+// 	}
+// }));
 
-app.use(webpackHotMiddleware(compiler));
+// app.use(webpackHotMiddleware(compiler));
 
 app.use(express.static(__dirname + '/public'));
 
@@ -73,12 +77,37 @@ app.get('*', (req, res) => {
 });
 
 app.post('/save-image', (req, res) => {
-
 	let {
 		dataURL
 	} = req.body;
+	let saveDir = './images/'
+	let imageName = `wt-${Date.now()}`;
+	res.send({});
 
-	base64Img.img(dataURL, './images/', `wt-${Date.now()}`, function (err, filepath) {});
+	base64Img.img(dataURL, saveDir, imageName, function (err, filepath) {
+
+		let printerName = printer.getPrinters()[0].name;
+
+		printer.printFile({
+			filename: filepath,
+			printer: printerName,
+			success: (jobID) => {
+				console.log('sent to printer with ID: ' + jobID);
+				if (DELETE_AFTER_PRINT) {
+					fs.unlink(filepath, err => {
+						if (err) {
+							console.log(`${filepath} has not been deleted`, err);
+						} else {
+							console.log(`${filepath} has been deleted`)
+						}
+					});
+				}
+			},
+			error: function (err) {
+				console.log(err);
+			}
+		});
+	});
 });
 
 const server = https.createServer(httpsOptions, app);

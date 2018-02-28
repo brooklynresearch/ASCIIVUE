@@ -1,13 +1,47 @@
 @import 'base/variables';
-@import 'components/instruction-page';
-@import 'components/camera-page';
+@import 'components/container';
+@import 'components/views';
+@import 'components/start-partial';
+@import 'components/camera-partial';
+@import 'components/ascii-quote';
+@import 'components/ascii-camera';
+@import 'components/snap-shot';
+@import 'components/ascii-thumbnail';
+@import 'components/selection-partial';
+@import 'components/agreement-partial';
+@import 'components/print-partial';
+@import 'components/input-partial';
+@import 'components/manual-modal';
+@import 'components/camera-flash';
 
-#video {
-  display: none;
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.full-page {
+  width: 100vw;
+  height: 100vh;
+}
+
+.fill-element {
+  width: 100%;
+  height: 100%;
 }
 
 * {
-  box-sizing: border-box;
+  color: $text-color;
+  font-family: 'Roboto';
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+.link-text {
+  color: $link-color;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 body {
@@ -27,4 +61,58 @@ a {
 
 a:visited {
   color: $white;
+}
+
+.fade-appear,
+.fade-enter {
+  height: 86vh;
+  width: 100vw;
+  position: absolute;
+  opacity: 0;
+}
+
+.fade-appear-active,
+.fade-enter-active {
+  height: 86vh;
+  width: 100vw;
+  position: absolute;
+  transition: opacity 300ms;
+  opacity: 1;
+}
+
+.fade-exit {
+  height: 86vh;
+  width: 100vw;
+  position: absollute;
+  transition: opacity 300ms;
+  opacity: 1;
+}
+
+.fade-exit-active {
+  height: 86vh;
+  width: 100vw;
+  opacity: 0;
+  position: absolute;
+}
+
+.in {
+  height: 86vh;
+}
+
+.wt-partial {}
+
+* {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }

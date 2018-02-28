@@ -1,0 +1,25 @@
+.wt-views {
+  @extend .full-page;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-rows: 13fr 2fr;
+
+  .wt-footer {
+
+    @extend .center;
+    display: flex;
+
+    background: url("../assets/wt-footer.jpg");
+    background-size: cover;
+
+    .wt-logo {
+      width: 15vw;
+      height: 15vw;
+      background: url("../assets/wt-logo.png");
+      background-size: cover;
+    }
+  }
+
+}

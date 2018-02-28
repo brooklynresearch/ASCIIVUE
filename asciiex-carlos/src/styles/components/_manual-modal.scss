@@ -1,0 +1,36 @@
+.wt-input-manual-modal-container {
+  display: flex;
+  @extend .center;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 86vh;
+
+  .wt-input-manual-modal {
+    display: flex;
+    @extend .center;
+    width: 80vw;
+    height: 20vh;
+    border: 1px $text-color solid;
+    background: $semi-transparent-white;
+    border-radius: 15px;
+    text-align: center;
+
+    .wt-input-manual-text {
+      display: flex;
+      @extend .center;
+      width: 60vw;
+      height: 15vh;
+    }
+
+  }
+
+  .wt-invisible-text-input {
+    opacity: 0;
+    z-index: -5000;
+    position: absolute;
+  }
+}

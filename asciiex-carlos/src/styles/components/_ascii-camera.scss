@@ -1,0 +1,25 @@
+.wt-ascii-camera {
+  @extend .center;
+  display: flex;
+
+  video {
+    display: none;
+  }
+
+  .wt-ascii-camera-container {
+    height: 62.5vh;
+    width: 88.8vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // height: 640px;
+    // width: 480px;
+
+    #ascii-canvas {
+      // @extend .fill-element;
+      width: 100%;
+    }
+  }
+
+}
